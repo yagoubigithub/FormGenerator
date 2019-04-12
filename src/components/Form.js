@@ -144,119 +144,165 @@ class Form extends Component {
   Input = (item, index) => {
     const { classes } = this.props;
     switch (item.type) {
-      case "int":
-        return (
-          <Grid key={item.id} item 
-          xs={12}
-          sm={12}
-          md={12}
-          lg={12}
-          xl={12}
-          >
-          <div >
-          <TextField
-              required={this.state.data[index]["required"]}
-              onChange={this.handleChange(item.id)}
-              id={item.id}
-              label={this.state.data[index]["label"]}
-              type="number"
-              fullWidth
-              helperText={
-                this.state.data[index]["helperText"] != ""
-                  ? this.state.data[index]["helperText"]
-                  : null
-              }
-              error={this.state.data[index]["error"] != ""}
-              value={this.state.data[index]["value"]}
-              variant={this.state.data[index]["variant"]}
-              margin="normal"
-            />
-            <Snackbar
-              open={this.state.data[index].error != ""}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left"
-              }}
-              ContentProps={{
-                classes: {
-                  root: classes.error
+      case "int":{
+        let sm,md,lg,xl = 12;
+        if(this.state.data[index]["inputSize"] === 'sm'){
+          [sm,md,lg,xl]= [6,3,3,3]
+        }
+        if(this.state.data[index]["inputSize"] === 'md'){
+          [sm,md,lg,xl]= [9,6,6,6]
+        }
+        if(this.state.data[index]["inputSize"] === 'lg'){
+          [sm,md,lg,xl]= [12,9,9,9]
+        }
+        if(this.state.data[index]["inputSize"] === 'xl'){
+          [sm,md,lg,xl]= [12,12,12,12]
+        }
+  
+          return (
+            <Grid key={item.id} item 
+            xs={12}
+            sm={sm}
+            md={md}
+            lg={lg}
+            xl={xl}
+            >
+            <div >
+            <TextField
+                required={this.state.data[index]["required"]}
+                onChange={this.handleChange(item.id)}
+                id={item.id}
+                label={this.state.data[index]["label"]}
+                type="number"
+                fullWidth
+                helperText={
+                  this.state.data[index]["helperText"] != ""
+                    ? this.state.data[index]["helperText"]
+                    : null
                 }
-              }}
-              variant="error"
-              message={
-                <span className={classes.snackMessage}>
-                  <Error style={{ marginRight: 15 }} />
-                  {this.state.data[index]["error"]}
-                </span>
-              }
-            />
-          </div>
-
-           
-          </Grid>
-        );
+                error={this.state.data[index]["error"] != ""}
+                value={this.state.data[index]["value"]}
+                variant={this.state.data[index]["variant"]}
+                margin="normal"
+              />
+              <Snackbar
+                open={this.state.data[index].error != ""}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left"
+                }}
+                ContentProps={{
+                  classes: {
+                    root: classes.error
+                  }
+                }}
+                variant="error"
+                message={
+                  <span className={classes.snackMessage}>
+                    <Error style={{ marginRight: 15 }} />
+                    {this.state.data[index]["error"]}
+                  </span>
+                }
+              />
+            </div>
+  
+             
+            </Grid>
+          );
+      }
+     
         break;
 
       case "decimale":
-        return (
-          <Grid key={item.id} item 
-          xs={12}
-          sm={12}
-          md={12}
-          lg={12}
-          xl={12}
-          >
-          <div >
-            <TextField
-              required={this.state.data[index]["required"]}
-              onChange={this.handleChange(item.id)}
-              id={item.id}
-              label={this.state.data[index]["label"]}
-              type="number"
-              fullWidth
-              error={this.state.data[index]["error"] != ""}
-              value={this.state.data[index]["value"]}
-              variant={this.state.data[index]["variant"]}
-              margin="normal"
-              inputProps={{ step: 1 / Math.pow(10, item.size[1]) }}
-              helperText={
-                this.state.data[index]["helperText"] != ""
-                  ? this.state.data[index]["helperText"]
-                  : null
-              }
-            />
-            <Snackbar
-              open={this.state.data[index].error != ""}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left"
-              }}
-              ContentProps={{
-                classes: {
-                  root: classes.error
+      {
+        let sm,md,lg,xl = 12;
+        if(this.state.data[index]["inputSize"] === 'sm'){
+          [sm,md,lg,xl]= [6,3,3,3]
+        }
+        if(this.state.data[index]["inputSize"] === 'md'){
+          [sm,md,lg,xl]= [9,6,6,6]
+        }
+        if(this.state.data[index]["inputSize"] === 'lg'){
+          [sm,md,lg,xl]= [12,9,9,9]
+        }
+        if(this.state.data[index]["inputSize"] === 'xl'){
+          [sm,md,lg,xl]= [12,12,12,12]
+        }
+
+          return (
+            <Grid key={item.id} item 
+            xs={12}
+            sm={sm}
+            md={md}
+            lg={lg}
+            xl={xl}
+            >
+            <div >
+              <TextField
+                required={this.state.data[index]["required"]}
+                onChange={this.handleChange(item.id)}
+                id={item.id}
+                label={this.state.data[index]["label"]}
+                type="number"
+                fullWidth
+                error={this.state.data[index]["error"] != ""}
+                value={this.state.data[index]["value"]}
+                variant={this.state.data[index]["variant"]}
+                margin="normal"
+                inputProps={{ step: 1 / Math.pow(10, item.size[1]) }}
+                helperText={
+                  this.state.data[index]["helperText"] != ""
+                    ? this.state.data[index]["helperText"]
+                    : null
                 }
-              }}
-              variant="error"
-              message={
-                <span className={classes.snackMessage}>
-                  <Error style={{ marginRight: 15 }} />
-                  {this.state.data[index]["error"]}
-                </span>
-              }
-            />
-          </div>
-          </Grid>
-        );
+              />
+              <Snackbar
+                open={this.state.data[index].error != ""}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left"
+                }}
+                ContentProps={{
+                  classes: {
+                    root: classes.error
+                  }
+                }}
+                variant="error"
+                message={
+                  <span className={classes.snackMessage}>
+                    <Error style={{ marginRight: 15 }} />
+                    {this.state.data[index]["error"]}
+                  </span>
+                }
+              />
+            </div>
+            </Grid>
+          );
+      }
+     
         break;
 
-      case "varchar":
+      case "varchar":{
+        let sm,md,lg,xl = 12;
+        if(this.state.data[index]["inputSize"] === 'sm'){
+          [sm,md,lg,xl]= [6,3,3,3]
+        }
+        if(this.state.data[index]["inputSize"] === 'md'){
+          [sm,md,lg,xl]= [9,6,6,6]
+        }
+        if(this.state.data[index]["inputSize"] === 'lg'){
+          [sm,md,lg,xl]= [12,9,9,9]
+        }
+        if(this.state.data[index]["inputSize"] === 'xl'){
+          [sm,md,lg,xl]= [12,12,12,12]
+        }
         return (
           <Grid key={item.id} item 
           xs={12}
-          sm={12}
-          md={12}
-          lg={12}
-          xl={12}
+          sm={sm}
+            md={md}
+            lg={lg}
+            xl={xl}
           >
           <div>
             <TextField
@@ -298,124 +344,157 @@ class Form extends Component {
           </div>
           </Grid>
         );
+      }
+     
         break;
       case "text":
+      {
+        let sm,md,lg,xl = 12;
+        if(this.state.data[index]["inputSize"] === 'sm'){
+          [sm,md,lg,xl]= [6,3,3,3]
+        }
+        if(this.state.data[index]["inputSize"] === 'md'){
+          [sm,md,lg,xl]= [9,6,6,6]
+        }
+        if(this.state.data[index]["inputSize"] === 'lg'){
+          [sm,md,lg,xl]= [12,9,9,9]
+        }
+        if(this.state.data[index]["inputSize"] === 'xl'){
+          [sm,md,lg,xl]= [12,12,12,12]
+        }
         return (
           <Grid key={item.id} item 
           xs={12}
-          sm={12}
-          md={12}
-          lg={12}
-          xl={12}
+          sm={sm}
+            md={md}
+            lg={lg}
+            xl={xl}
           >
-          <div >
-            <TextField
-              onChange={this.handleChange(item.id)}
-              id={item.id}
-              label={this.state.data[index]["label"]}
-              required={this.state.data[index]["required"]}
-              type="text"
-              multiline
-              rowsMax={this.state.data[index]["rows"][1]}
-              rows={this.state.data[index]["rows"][0]}
-              fullWidth
-              error={this.state.data[index]["error"] != ""}
-              value={this.state.data[index]["value"]}
-              variant={this.state.data[index]["variant"]}
-              margin="normal"
-              helperText={
-                this.state.data[index]["helperText"] != ""
-                  ? this.state.data[index]["helperText"]
-                  : null
-              }
-            />
-            <Snackbar
-              open={this.state.data[index].error != ""}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left"
-              }}
-              ContentProps={{
-                classes: {
-                  root: classes.error
-                }
-              }}
-              variant="error"
-              message={
-                <span className={classes.snackMessage}>
-                  <Error style={{ marginRight: 15 }} />
-                  {this.state.data[index]["error"]}
-                </span>
-              }
-            />
-          </div>
-          </Grid>
-        );
-        break;
-
-      case "date":
-        const data = [...this.state.data];
-
-        const date = new Date();
-        const dformat = [
-          date.getFullYear(),
-          date.getMonth() + 1 >= 10
-            ? date.getMonth() + 1
-            : "0" + (date.getMonth() + 1),
-          date.getDate() >= 10 ? date.getDate() : "0" + date.getDate()
-        ].join("-");
-
-        if (data[index]["selectedDate"] == undefined)
-          data[index]["selectedDate"] = dformat;
-
-        return (
-          <Grid key={item.id} item 
-          xs={12}
-          sm={12}
-          md={12}
-          lg={12}
-          xl={12}
-          >
-          <div >
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <DatePicker
+            <div >
+              <TextField
+                onChange={this.handleChange(item.id)}
+                id={item.id}
                 label={this.state.data[index]["label"]}
                 required={this.state.data[index]["required"]}
+                type="text"
+                multiline
+                rowsMax={this.state.data[index]["rows"][1]}
+                rows={this.state.data[index]["rows"][0]}
                 fullWidth
-                value={this.state.data[index]["selectedDate"]}
-                onChange={date => this.handleDateChange(date, item.id)}
+                error={this.state.data[index]["error"] != ""}
+                value={this.state.data[index]["value"]}
                 variant={this.state.data[index]["variant"]}
                 margin="normal"
-                error={this.state.data[index]["error"] != ""}
                 helperText={
                   this.state.data[index]["helperText"] != ""
                     ? this.state.data[index]["helperText"]
                     : null
                 }
               />
-            </MuiPickersUtilsProvider>
-            <Snackbar
-              open={this.state.data[index].error != ""}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left"
-              }}
-              ContentProps={{
-                classes: {
-                  root: classes.error
+              <Snackbar
+                open={this.state.data[index].error != ""}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left"
+                }}
+                ContentProps={{
+                  classes: {
+                    root: classes.error
+                  }
+                }}
+                variant="error"
+                message={
+                  <span className={classes.snackMessage}>
+                    <Error style={{ marginRight: 15 }} />
+                    {this.state.data[index]["error"]}
+                  </span>
                 }
-              }}
-              variant="error"
-              message={
-                <span className={classes.snackMessage}>
-                  <Error style={{ marginRight: 15 }} />
-                  {this.state.data[index]["error"]}
-                </span>
+              />
+            </div>
+            </Grid>
+          );
+      }
+    
+        break;
+
+      case "date":
+     {
+      const data = [...this.state.data];
+
+      const date = new Date();
+      const dformat = [
+        date.getFullYear(),
+        date.getMonth() + 1 >= 10
+          ? date.getMonth() + 1
+          : "0" + (date.getMonth() + 1),
+        date.getDate() >= 10 ? date.getDate() : "0" + date.getDate()
+      ].join("-");
+
+      if (data[index]["selectedDate"] == undefined)
+        data[index]["selectedDate"] = dformat;
+        let sm,md,lg,xl = 12;
+        if(this.state.data[index]["inputSize"] === 'sm'){
+          [sm,md,lg,xl]= [6,3,3,3]
+        }
+        if(this.state.data[index]["inputSize"] === 'md'){
+          [sm,md,lg,xl]= [9,6,6,6]
+        }
+        if(this.state.data[index]["inputSize"] === 'lg'){
+          [sm,md,lg,xl]= [12,9,9,9]
+        }
+        if(this.state.data[index]["inputSize"] === 'xl'){
+          [sm,md,lg,xl]= [12,12,12,12]
+        }
+        return (
+          <Grid key={item.id} item 
+          xs={12}
+          sm={sm}
+            md={md}
+            lg={lg}
+            xl={xl}
+          >
+        <div >
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <DatePicker
+              label={this.state.data[index]["label"]}
+              required={this.state.data[index]["required"]}
+              fullWidth
+              value={this.state.data[index]["selectedDate"]}
+              onChange={date => this.handleDateChange(date, item.id)}
+              variant={this.state.data[index]["variant"]}
+              margin="normal"
+              error={this.state.data[index]["error"] != ""}
+              helperText={
+                this.state.data[index]["helperText"] != ""
+                  ? this.state.data[index]["helperText"]
+                  : null
               }
             />
-          </div>
-          </Grid>
-        );
+          </MuiPickersUtilsProvider>
+          <Snackbar
+            open={this.state.data[index].error != ""}
+            anchorOrigin={{
+              vertical: "bottom",
+              horizontal: "left"
+            }}
+            ContentProps={{
+              classes: {
+                root: classes.error
+              }
+            }}
+            variant="error"
+            message={
+              <span className={classes.snackMessage}>
+                <Error style={{ marginRight: 15 }} />
+                {this.state.data[index]["error"]}
+              </span>
+            }
+          />
+        </div>
+        </Grid>
+      );
+     }
+      
         break;
 
       case "dateTime":
@@ -444,15 +523,29 @@ class Form extends Component {
 
           if (data[index]["selectedDate"] == undefined)
             data[index]["selectedDate"] = dformat;
-
-          return (
-            <Grid key={item.id} item 
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
-            xl={12}
-            >
+            if (data[index]["selectedDate"] == undefined)
+            data[index]["selectedDate"] = dformat;
+            let sm,md,lg,xl = 12;
+            if(this.state.data[index]["inputSize"] === 'sm'){
+              [sm,md,lg,xl]= [6,3,3,3]
+            }
+            if(this.state.data[index]["inputSize"] === 'md'){
+              [sm,md,lg,xl]= [9,6,6,6]
+            }
+            if(this.state.data[index]["inputSize"] === 'lg'){
+              [sm,md,lg,xl]= [12,9,9,9]
+            }
+            if(this.state.data[index]["inputSize"] === 'xl'){
+              [sm,md,lg,xl]= [12,12,12,12]
+            }
+            return (
+              <Grid key={item.id} item 
+              xs={12}
+              sm={sm}
+                md={md}
+                lg={lg}
+                xl={xl}
+              >
             <div>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <DateTimePicker
@@ -514,14 +607,29 @@ class Form extends Component {
           if (data[index]["selectedDate"] == undefined)
             data[index]["selectedDate"] = dformat;
 
-          return (
-            <Grid key={item.id} item 
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
-            xl={12}
-            >
+            if (data[index]["selectedDate"] == undefined)
+            data[index]["selectedDate"] = dformat;
+            let sm,md,lg,xl = 12;
+            if(this.state.data[index]["inputSize"] === 'sm'){
+              [sm,md,lg,xl]= [6,3,3,3]
+            }
+            if(this.state.data[index]["inputSize"] === 'md'){
+              [sm,md,lg,xl]= [9,6,6,6]
+            }
+            if(this.state.data[index]["inputSize"] === 'lg'){
+              [sm,md,lg,xl]= [12,9,9,9]
+            }
+            if(this.state.data[index]["inputSize"] === 'xl'){
+              [sm,md,lg,xl]= [12,12,12,12]
+            }
+            return (
+              <Grid key={item.id} item 
+              xs={12}
+              sm={sm}
+                md={md}
+                lg={lg}
+                xl={xl}
+              >
             <div>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <TimePicker
@@ -568,14 +676,32 @@ class Form extends Component {
 
       case "enum":
         {
-          return (
-            <Grid key={item.id} item 
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
-            xl={12}
-            >
+          const data = [...this.state.data];
+
+          
+       
+
+          let sm,md,lg,xl = 12;
+          if(this.state.data[index]["inputSize"] === 'sm'){
+            [sm,md,lg,xl]= [6,3,3,3]
+          }
+          if(this.state.data[index]["inputSize"] === 'md'){
+            [sm,md,lg,xl]= [9,6,6,6]
+          }
+          if(this.state.data[index]["inputSize"] === 'lg'){
+            [sm,md,lg,xl]= [12,9,9,9]
+          }
+          if(this.state.data[index]["inputSize"] === 'xl'){
+            [sm,md,lg,xl]= [12,12,12,12]
+          }
+        return (
+          <Grid key={item.id} item 
+          xs={12}
+          sm={sm}
+            md={md}
+            lg={lg}
+            xl={xl}
+          >
             <div>
               <FormControl
                 required={this.state.data[index]["required"]}
@@ -627,14 +753,28 @@ class Form extends Component {
 
       case "set":
         {
-          return (
-            <Grid key={item.id} item 
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
-            xl={12}
-            >
+         
+          let sm,md,lg,xl = 12;
+          if(this.state.data[index]["inputSize"] === 'sm'){
+            [sm,md,lg,xl]= [6,3,3,3]
+          }
+          if(this.state.data[index]["inputSize"] === 'md'){
+            [sm,md,lg,xl]= [9,6,6,6]
+          }
+          if(this.state.data[index]["inputSize"] === 'lg'){
+            [sm,md,lg,xl]= [12,9,9,9]
+          }
+          if(this.state.data[index]["inputSize"] === 'xl'){
+            [sm,md,lg,xl]= [12,12,12,12]
+          }
+        return (
+          <Grid key={item.id} item 
+          xs={12}
+          sm={sm}
+            md={md}
+            lg={lg}
+            xl={xl}
+          >
             <div >
               <FormControl
                 required={this.state.data[index]["required"]}
@@ -691,14 +831,28 @@ class Form extends Component {
 
       case "select-multi":
         {
-          return (
-            <Grid key={item.id} item 
-            xs={12}
-            sm={12}
-            md={12}
-            lg={12}
-            xl={12}
-            >
+         
+          let sm,md,lg,xl = 12;
+          if(this.state.data[index]["inputSize"] === 'sm'){
+            [sm,md,lg,xl]= [6,3,3,3]
+          }
+          if(this.state.data[index]["inputSize"] === 'md'){
+            [sm,md,lg,xl]= [9,6,6,6]
+          }
+          if(this.state.data[index]["inputSize"] === 'lg'){
+            [sm,md,lg,xl]= [12,9,9,9]
+          }
+          if(this.state.data[index]["inputSize"] === 'xl'){
+            [sm,md,lg,xl]= [12,12,12,12]
+          }
+        return (
+          <Grid key={item.id} item 
+          xs={12}
+          sm={sm}
+            md={md}
+            lg={lg}
+            xl={xl}
+          >
             <div>
               <Select
               isSearchable 
@@ -744,13 +898,26 @@ class Form extends Component {
         break;
         case "select":
         {
+          let sm,md,lg,xl = 12;
+        if(this.state.data[index]["inputSize"] === 'sm'){
+          [sm,md,lg,xl]= [6,3,3,3]
+        }
+        if(this.state.data[index]["inputSize"] === 'md'){
+          [sm,md,lg,xl]= [9,6,6,6]
+        }
+        if(this.state.data[index]["inputSize"] === 'lg'){
+          [sm,md,lg,xl]= [12,9,9,9]
+        }
+        if(this.state.data[index]["inputSize"] === 'xl'){
+          [sm,md,lg,xl]= [12,12,12,12]
+        }
           return (
             <Grid key={item.id} item 
             xs={12}
-            sm={12}
-            md={12}
-            lg={12}
-            xl={12}
+            sm={sm}
+              md={md}
+              lg={lg}
+              xl={xl}
             >
             <div >
               <Select
@@ -803,7 +970,7 @@ class Form extends Component {
   render() {
     return (
       <Card style={{margin : 4,padding : 4}}>
-              <Grid container spacing={16}>{this.state.data.map((item, index) => this.Input(item, index))}</Grid>
+              <Grid  alignItems="flex-end" container spacing={16}>{this.state.data.map((item, index) => this.Input(item, index))}</Grid>
 
       </Card>
     );

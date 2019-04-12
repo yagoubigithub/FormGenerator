@@ -14,7 +14,8 @@ const data = [
     length : null,
     rows : null,
     required : true,
-    helperText : "hello helper text"
+    helperText : "hello helper text",
+    inputSize :  'sm'
   },{
     id :  "b",
     variant : "filled",
@@ -26,7 +27,8 @@ const data = [
     length : null,
     rows : null,
     required : true,
-    helperText : "hello helper text"
+    helperText : "hello helper text",
+    inputSize :  'sm'
   },{
     id :  "c",
     label : "Varchar Input",
@@ -38,7 +40,8 @@ const data = [
     variant : "filled",
     error :  "",
     required : true,
-    helperText : "hello helper text"
+    helperText : "hello helper text",
+    inputSize :  'md'
   }
   ,{
     id :  "d",
@@ -51,7 +54,8 @@ const data = [
     error :  "",
     variant : "standard",
     required : true,
-    helperText : "Ht;e; fjjf jdjr fkkfrdje kekf kkfnnd"
+    helperText : "Ht;e; fjjf jdjr fkkfrdje kekf kkfnnd",
+    inputSize :  'md'
   }
   ,{
     id :  "e",
@@ -64,7 +68,8 @@ const data = [
     error :  "",
     variant : "outlined",
     required : true,
-    helperText : "Date date date dteddhb "
+    helperText : "Date date date dteddhb ",
+    inputSize :  'sm'
   }
   ,{
     id :  "f",
@@ -77,7 +82,8 @@ const data = [
     error :  "",
     variant : "outlined",
     required : true,
-    helperText : "Date date date dteddhb "
+    helperText : "Date date date dteddhb ",
+    inputSize :  'sm'
   }
   ,{
     id :  "g",
@@ -90,6 +96,7 @@ const data = [
     error :  "",
     variant : "outlined",
     required : true,
+    inputSize :  'xl',
     helperText : "Date date date dteddhb "
   }
 
@@ -106,7 +113,8 @@ const data = [
     error :  "",
     variant : "outlined",
     required : true,
-    helperText : "enum enum enum "
+    helperText : "enum enum enum ",
+    inputSize :  'md'
   }
   ,{
     id :  "i",
@@ -121,7 +129,8 @@ const data = [
     error :  "",
     variant : "outlined",
     required : true,
-    helperText : "Set set set "
+    helperText : "Set set set ",
+    inputSize :  'md'
   }
   ,{
     id :  "j",
@@ -136,7 +145,8 @@ const data = [
     error :  "",
     variant : "outlined",
     required : true,
-    helperText : "Set set set "
+    helperText : "Set set set ",
+    inputSize :  'sm'
   }
 
   ,{
@@ -152,7 +162,8 @@ const data = [
     error :  "",
     variant : "outlined",
     required : true,
-    helperText : "Set set set "
+    helperText : "Set set set ",
+    inputSize :  'md'
   }
 ]
 
