@@ -2,6 +2,13 @@
 
 You give this component array of object as props <Form data={data} /> each object has label and type of the label. The componenet generate a ```Form``` from this array of object.
 
+### instalation : 
+
+ - npm i @material-ui/core
+ - npm i @date-io/date-fns date-fns@next
+ - npm i material-ui-pickers
+ - npm i react-select
+ - npm i @material-ui/icons
 ###  Object content : 
 
 | Key | Value | description |
