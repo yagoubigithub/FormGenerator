@@ -9,7 +9,7 @@ const data = [
     label : "numbre of classes",
     type : "int",
     value : 14,
-    size : [10,0],
+    size : [3,0],
     error :  "",
     length : null,
     rows : null,
@@ -28,14 +28,14 @@ const data = [
     rows : null,
     required : true,
     helperText : "hello helper text",
-    inputSize :  'sm'
+    inputSize :  'md'
   },{
     id :  "c",
     label : "Varchar Input",
     type : "varchar",
-    value : "Render a Select element while passing the Input",
+    value : "Render a Select element while passing the Input hello helper text hello helper text",
     size : null,
-   
+   length : 50,
     rows : null,
     variant : "filled",
     error :  "",
@@ -49,8 +49,7 @@ const data = [
     type : "text",
     value : "Render a Select element while passing the Input",
     size : null,
-   
-    rows : [6,8],
+    length : 255,
     error :  "",
     variant : "standard",
     required : true,
@@ -105,7 +104,7 @@ const data = [
     label : "enum radio button",
     type : "enum",
     value :"radoi1_value",
-    possibles : [{key :  "a",label : "radio1", value : "radoi1_value"},{key :  "b",label : "radio2", value : "radoi2_value"}
+    possibles : [{key :  "a",label : "radio111111111111", value : "radoi1_value"},{key :  "b",label : "radio2", value : "radoi2_value"}
   ,{key :  "c",label : "radio3", value : "radoi3_value"}],
     size : null,
     length : null,
@@ -122,7 +121,7 @@ const data = [
     type : "set",
    value : [],
    possibles : [{key :  "a",label : "set1", value : "set1_value", checked : false},
-   {key :  "b",label : "set2", value : "set2_value",hecked : true}],
+   {key :  "b",label : "set2", value : "set2_value",checked : true}],
     size : null,
     length : null,
     rows : null,
@@ -170,10 +169,14 @@ const data = [
   
 
 class App extends Component {
+
+  getData = (data) =>{
+    console.log(data);
+  }
   render() {
     return (
       <div className="App">
-       <Form data={data} />
+       <Form data={data}  sendData={this.getData} />
       </div>
     );
   }

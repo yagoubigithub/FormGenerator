@@ -12,3 +12,9 @@ You give this component array of object as props <Form data={data} /> each objec
 | size | array : [int,int] | required in int and decimale type |
 | rows | array : [int,int] | required in text type first argument is number of rows second argument is maximum number of rows |
 | inputSize |enum : [ sm , md , lg , xl ] | required in all object ```inputSize != null``` |
+
+
+Date type franch
+
+
+change size to length
