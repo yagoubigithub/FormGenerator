@@ -1,25 +1,168 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Form from './components/Form'
+
+
+const data = [
+  {
+    id :   "a",
+    variant : "outlined",
+    label : "numbre of classes",
+    type : "int",
+    value : 14,
+    size : [10,0],
+    error :  "",
+    length : null,
+    rows : null,
+    required : true,
+    helperText : "hello helper text"
+  },{
+    id :  "b",
+    variant : "filled",
+    label : "decimale number",
+    type : "decimale",
+    value : 14.7,
+    size : [10,5],
+    error :  "",
+    length : null,
+    rows : null,
+    required : true,
+    helperText : "hello helper text"
+  },{
+    id :  "c",
+    label : "Varchar Input",
+    type : "varchar",
+    value : "Render a Select element while passing the Input",
+    size : null,
+    length : 50,
+    rows : null,
+    variant : "filled",
+    error :  "",
+    required : true,
+    helperText : "hello helper text"
+  }
+  ,{
+    id :  "d",
+    label : "text",
+    type : "text",
+    value : "Render a Select element while passing the Input",
+    size : null,
+    length : 50,
+    rows : [6,8],
+    error :  "",
+    variant : "standard",
+    required : true,
+    helperText : "Ht;e; fjjf jdjr fkkfrdje kekf kkfnnd"
+  }
+  ,{
+    id :  "e",
+    label : "date picker",
+    type : "date",
+    value : "Render a Select element while passing the Input",
+    size : null,
+    length : null,
+    rows : null,
+    error :  "",
+    variant : "outlined",
+    required : true,
+    helperText : "Date date date dteddhb "
+  }
+  ,{
+    id :  "f",
+    label : "date picker",
+    type : "dateTime",
+    value : "Render a Select element while passing the Input",
+    size : null,
+    length : null,
+    rows : null,
+    error :  "",
+    variant : "outlined",
+    required : true,
+    helperText : "Date date date dteddhb "
+  }
+  ,{
+    id :  "g",
+    label : "time picker",
+    type : "time",
+    value : "Render a Select element while passing the Input",
+    size : null,
+    length : null,
+    rows : null,
+    error :  "",
+    variant : "outlined",
+    required : true,
+    helperText : "Date date date dteddhb "
+  }
+
+  ,{
+    id :  "h",
+    label : "enum radio button",
+    type : "enum",
+    value :"radoi1_value",
+    possibles : [{key :  "a",label : "radio1", value : "radoi1_value"},{key :  "b",label : "radio2", value : "radoi2_value"}
+  ,{key :  "c",label : "radio3", value : "radoi3_value"}],
+    size : null,
+    length : null,
+    rows : null,
+    error :  "",
+    variant : "outlined",
+    required : true,
+    helperText : "enum enum enum "
+  }
+  ,{
+    id :  "i",
+    label : "Set Checkbox button",
+    type : "set",
+   value : [],
+   possibles : [{key :  "a",label : "set1", value : "set1_value", checked : false},
+   {key :  "b",label : "set2", value : "set2_value",hecked : true}],
+    size : null,
+    length : null,
+    rows : null,
+    error :  "",
+    variant : "outlined",
+    required : true,
+    helperText : "Set set set "
+  }
+  ,{
+    id :  "j",
+    label : "Select multiple",
+    type : "select-multi",
+   value : [],
+   possibles : [{label : "set1", value : "set1_value"},
+   {label : "set2", value : "set2_value"}],
+    size : null,
+    length : null,
+    rows : null,
+    error :  "",
+    variant : "outlined",
+    required : true,
+    helperText : "Set set set "
+  }
+
+  ,{
+    id :  "k",
+    label : "Select set1 set2 set3 ...",
+    type : "select",
+   value : [],
+   possibles : [{label : "set1", value : "set1_value"},
+   {label : "set2", value : "set2_value"}],
+    size : null,
+    length : null,
+    rows : null,
+    error :  "",
+    variant : "outlined",
+    required : true,
+    helperText : "Set set set "
+  }
+]
+
+  
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+       <Form data={data} />
       </div>
     );
   }
