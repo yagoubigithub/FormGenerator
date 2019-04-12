@@ -35,7 +35,7 @@ const data = [
     type : "varchar",
     value : "Render a Select element while passing the Input",
     size : null,
-    length : 50,
+   
     rows : null,
     variant : "filled",
     error :  "",
@@ -49,7 +49,7 @@ const data = [
     type : "text",
     value : "Render a Select element while passing the Input",
     size : null,
-    length : 50,
+   
     rows : [6,8],
     error :  "",
     variant : "standard",
