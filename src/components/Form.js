@@ -29,7 +29,6 @@ import frLocale from "date-fns/locale/fr";
 import ruLocale from "date-fns/locale/ru";
 import enLocale from "date-fns/locale/en-US";
 
-
 const styles = {
   error: {
     background: "#d32f2f",
@@ -57,14 +56,14 @@ class Form extends Component {
     ].join("-");
     const data = [...this.state.data];
     data.map(item => {
-      if (item.id == name) {
-        item["selectedDate"] = dformat;
-        console.log(item["selectedDate"]);
+      if (item.id === name) {
+        item["value"] = dformat;
       }
     });
     this.setState({
       data
     });
+    this.sendData();
   };
   handleDateTimeChange = (date, name) => {
     const dformat =
@@ -83,26 +82,26 @@ class Form extends Component {
       ].join(":");
     const data = [...this.state.data];
     data.map(item => {
-      if (item.id == name) {
-        item["selectedDate"] = dformat;
-        console.log(item["selectedDate"]);
+      if (item.id === name) {
+        item["value"] = dformat;
+        console.log(item["value"]);
       }
     });
     this.setState({
       data
     });
+    this.sendData();
   };
 
-
-  CalculMaxLength = array =>{
+  CalculMaxLength = array => {
     let max = 0;
-    array.map(item=>{
-      if(item.label.length >= max){
+    array.map(item => {
+      if (item.label.length >= max) {
         max = item.label.length;
       }
     });
     return max;
-  }
+  };
   handleTimeChange = (date, name) => {
     const dformat =
       "2014-08-18T" +
@@ -112,20 +111,21 @@ class Form extends Component {
       ].join(":");
     const data = [...this.state.data];
     data.map(item => {
-      if (item.id == name) {
-        item["selectedDate"] = dformat;
-        console.log(item["selectedDate"]);
+      if (item.id === name) {
+        item["value"] = dformat;
+        console.log(item["value"]);
       }
     });
     this.setState({
       data
     });
+    this.sendData();
   };
 
   handleChange = name => event => {
     const data = [...this.state.data];
     data.map(item => {
-      if (item.id == name) {
+      if (item.id === name) {
         item.value = event.target.value;
       }
     });
@@ -136,7 +136,7 @@ class Form extends Component {
   handleSelectMultiChange = (selectedOption, name) => {
     const data = [...this.state.data];
     data.map(item => {
-      if (item.id == name) {
+      if (item.id === name) {
         item.value = selectedOption;
       }
     });
@@ -148,7 +148,7 @@ class Form extends Component {
   handleCheckBoxChange = (event, name, key) => {
     const data = [...this.state.data];
     data.map(item => {
-      if (item.id == name) {
+      if (item.id === name) {
         item.possibles.map(possible => {
           if (possible.key == key) {
             possible["checked"] = event.target.checked;
@@ -174,15 +174,13 @@ class Form extends Component {
       return [12, 12, 12, 12, 12];
     }
   };
-  CreateObject = () =>{
+  CreateObject = () => {
     return (
       <Grid alignItems="flex-end" container spacing={16}>
-    {this.props.data.map((item, index) => this.Input(item, index))}
-  </Grid>
+        {this.props.data.map((item, index) => this.Input(item, index))}
+      </Grid>
     );
-    
-    
-  }
+  };
 
   Input = (item, index) => {
     const { classes } = this.props;
@@ -207,17 +205,17 @@ class Form extends Component {
                   type="number"
                   fullWidth
                   helperText={
-                    this.state.data[index]["helperText"] != ""
+                    this.state.data[index]["helperText"] !== ""
                       ? this.state.data[index]["helperText"]
                       : null
                   }
-                  error={this.state.data[index]["error"] != ""}
+                  error={this.state.data[index]["error"] !== ""}
                   value={this.state.data[index]["value"]}
                   variant={this.state.data[index]["variant"]}
                   margin="normal"
                 />
                 <Snackbar
-                  open={this.state.data[index].error != ""}
+                  open={this.state.data[index].error !== ""}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left"
@@ -263,19 +261,19 @@ class Form extends Component {
                   label={this.state.data[index]["label"]}
                   type="number"
                   fullWidth
-                  error={this.state.data[index]["error"] != ""}
+                  error={this.state.data[index]["error"] !== ""}
                   value={this.state.data[index]["value"]}
                   variant={this.state.data[index]["variant"]}
                   margin="normal"
                   inputProps={{ step: 1 / Math.pow(10, item.size[1]) }}
                   helperText={
-                    this.state.data[index]["helperText"] != ""
+                    this.state.data[index]["helperText"] !== ""
                       ? this.state.data[index]["helperText"]
                       : null
                   }
                 />
                 <Snackbar
-                  open={this.state.data[index].error != ""}
+                  open={this.state.data[index].error !== ""}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left"
@@ -318,18 +316,18 @@ class Form extends Component {
                   label={this.state.data[index]["label"]}
                   type="text"
                   fullWidth
-                  error={this.state.data[index]["error"] != ""}
+                  error={this.state.data[index]["error"] !== ""}
                   value={this.state.data[index]["value"]}
                   variant={this.state.data[index]["variant"]}
                   margin="normal"
                   helperText={
-                    this.state.data[index]["helperText"] != ""
+                    this.state.data[index]["helperText"] !== ""
                       ? this.state.data[index]["helperText"]
                       : null
                   }
                 />
                 <Snackbar
-                  open={this.state.data[index].error != ""}
+                  open={this.state.data[index].error !== ""}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left"
@@ -372,7 +370,6 @@ class Form extends Component {
                   type="text"
                   multiline
                   placeholder={this.state.data[index]["label"]}
-                  
                   rows={4}
                   fullWidth
                   error={this.state.data[index]["error"] != ""}
@@ -380,13 +377,13 @@ class Form extends Component {
                   variant={this.state.data[index]["variant"]}
                   margin="normal"
                   helperText={
-                    this.state.data[index]["helperText"] != ""
+                    this.state.data[index]["helperText"] !== ""
                       ? this.state.data[index]["helperText"]
                       : null
                   }
                 />
                 <Snackbar
-                  open={this.state.data[index].error != ""}
+                  open={this.state.data[index].error !== ""}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left"
@@ -413,8 +410,11 @@ class Form extends Component {
 
       case "date":
         {
-
-          let xs,sm,md,lg,xl = 12;
+          let xs,
+            sm,
+            md,
+            lg,
+            xl = 12;
           [xs, sm, md, lg, xl] = this.CalculSize(5);
           const data = [...this.state.data];
 
@@ -427,9 +427,8 @@ class Form extends Component {
             date.getDate() >= 10 ? date.getDate() : "0" + date.getDate()
           ].join("-");
 
-          if (data[index]["selectedDate"] == undefined)
-            data[index]["selectedDate"] = dformat;
-         
+          data[index]["value"] = dformat;
+
           return (
             <Grid key={item.id} item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <div>
@@ -438,13 +437,13 @@ class Form extends Component {
                     label={this.state.data[index]["label"]}
                     required={this.state.data[index]["required"]}
                     fullWidth
-                    value={this.state.data[index]["selectedDate"]}
+                    value={this.state.data[index]["value"]}
                     onChange={date => this.handleDateChange(date, item.id)}
                     variant={this.state.data[index]["variant"]}
                     margin="normal"
-                    error={this.state.data[index]["error"] != ""}
+                    error={this.state.data[index]["error"] !== ""}
                     helperText={
-                      this.state.data[index]["helperText"] != ""
+                      this.state.data[index]["helperText"] !== ""
                         ? this.state.data[index]["helperText"]
                         : null
                     }
@@ -500,12 +499,14 @@ class Form extends Component {
                 : "0" + date.getSeconds()
             ].join(":");
 
-          if (data[index]["selectedDate"] == undefined)
-            data[index]["selectedDate"] = dformat;
-          if (data[index]["selectedDate"] == undefined)
-            data[index]["selectedDate"] = dformat;
-            let xs,sm,md,lg,xl = 12;
-            [xs, sm, md, lg, xl] = this.CalculSize(5);
+          data[index]["value"] = dformat;
+
+          let xs,
+            sm,
+            md,
+            lg,
+            xl = 12;
+          [xs, sm, md, lg, xl] = this.CalculSize(5);
           return (
             <Grid key={item.id} item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <div>
@@ -514,20 +515,20 @@ class Form extends Component {
                     label={this.state.data[index]["label"]}
                     required={this.state.data[index]["required"]}
                     fullWidth
-                    error={this.state.data[index]["error"] != ""}
-                    value={this.state.data[index]["selectedDate"]}
+                    error={this.state.data[index]["error"] !== ""}
+                    value={this.state.data[index]["value"]}
                     onChange={date => this.handleDateTimeChange(date, item.id)}
                     variant={this.state.data[index]["variant"]}
                     margin="normal"
                     helperText={
-                      this.state.data[index]["helperText"] != ""
+                      this.state.data[index]["helperText"] !== ""
                         ? this.state.data[index]["helperText"]
                         : null
                     }
                   />
                 </MuiPickersUtilsProvider>
                 <Snackbar
-                  open={this.state.data[index].error != ""}
+                  open={this.state.data[index].error !== ""}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left"
@@ -566,13 +567,14 @@ class Form extends Component {
                 : "0" + date.getMinutes()
             ].join(":");
 
-          if (data[index]["selectedDate"] == undefined)
-            data[index]["selectedDate"] = dformat;
+          data[index]["value"] = dformat;
 
-          if (data[index]["selectedDate"] == undefined)
-            data[index]["selectedDate"] = dformat;
-            let xs,sm,md,lg,xl = 12;
-            [xs, sm, md, lg, xl] = this.CalculSize(5);
+          let xs,
+            sm,
+            md,
+            lg,
+            xl = 12;
+          [xs, sm, md, lg, xl] = this.CalculSize(5);
           return (
             <Grid key={item.id} item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <div>
@@ -580,21 +582,21 @@ class Form extends Component {
                   <TimePicker
                     label={this.state.data[index]["label"]}
                     required={this.state.data[index]["required"]}
-                    error={this.state.data[index]["error"] != ""}
+                    error={this.state.data[index]["error"] !== ""}
                     fullWidth
-                    value={this.state.data[index]["selectedDate"]}
+                    value={this.state.data[index]["value"]}
                     onChange={date => this.handleTimeChange(date, item.id)}
                     variant={this.state.data[index]["variant"]}
                     margin="normal"
                     helperText={
-                      this.state.data[index]["helperText"] != ""
+                      this.state.data[index]["helperText"] !== ""
                         ? this.state.data[index]["helperText"]
                         : null
                     }
                   />
                 </MuiPickersUtilsProvider>
                 <Snackbar
-                  open={this.state.data[index].error != ""}
+                  open={this.state.data[index].error !== ""}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left"
@@ -621,12 +623,16 @@ class Form extends Component {
 
       case "enum":
         {
-          const data = [...this.state.data];
-
-          let xs,sm,md,lg,xl = 12;
-            [xs, sm, md, lg, xl] = this.CalculSize(this.CalculMaxLength(item.possibles));
+          let xs,
+            sm,
+            md,
+            lg,
+            xl = 12;
+          [xs, sm, md, lg, xl] = this.CalculSize(
+            this.CalculMaxLength(item.possibles)
+          );
           return (
-            <Grid style={{border :  "1px solid red"}} key={item.id} item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+            <Grid key={item.id} item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <div>
                 <FormControl
                   required={this.state.data[index]["required"]}
@@ -651,7 +657,7 @@ class Form extends Component {
                   </RadioGroup>
                 </FormControl>
                 <Snackbar
-                  open={this.state.data[index].error != ""}
+                  open={this.state.data[index].error !== ""}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left"
@@ -678,10 +684,16 @@ class Form extends Component {
 
       case "set":
         {
-          let xs,sm,md,lg,xl = 12;
-            [xs, sm, md, lg, xl] = this.CalculSize(this.CalculMaxLength(item.possibles));
+          let xs,
+            sm,
+            md,
+            lg,
+            xl = 12;
+          [xs, sm, md, lg, xl] = this.CalculSize(
+            this.CalculMaxLength(item.possibles)
+          );
           return (
-            <Grid  style={{border :  "1px solid red"}} key={item.id} item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+            <Grid key={item.id} item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <div>
                 <FormControl
                   required={this.state.data[index]["required"]}
@@ -715,7 +727,7 @@ class Form extends Component {
                   </FormGroup>
                 </FormControl>
                 <Snackbar
-                  open={this.state.data[index].error != ""}
+                  open={this.state.data[index].error !== ""}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left"
@@ -742,8 +754,14 @@ class Form extends Component {
 
       case "select-multi":
         {
-          let xs,sm,md,lg,xl = 12;
-          [xs, sm, md, lg, xl] = this.CalculSize(this.CalculMaxLength(item.possibles));
+          let xs,
+            sm,
+            md,
+            lg,
+            xl = 12;
+          [xs, sm, md, lg, xl] = this.CalculSize(
+            this.CalculMaxLength(item.possibles)
+          );
           return (
             <Grid key={item.id} item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <div>
@@ -751,7 +769,7 @@ class Form extends Component {
                   isSearchable
                   placeholder={this.state.data[index]["label"]}
                   required={this.state.data[index]["required"]}
-                  error={this.state.data[index]["error"] != ""}
+                  error={this.state.data[index]["error"] !== ""}
                   fullWidth
                   onChange={selectedOption =>
                     this.handleSelectMultiChange(selectedOption, item.id)
@@ -760,14 +778,14 @@ class Form extends Component {
                   variant={this.state.data[index]["variant"]}
                   margin="normal"
                   helperText={
-                    this.state.data[index]["helperText"] != ""
+                    this.state.data[index]["helperText"] !== ""
                       ? this.state.data[index]["helperText"]
                       : null
                   }
                   isMulti
                 />
                 <Snackbar
-                  open={this.state.data[index].error != ""}
+                  open={this.state.data[index].error !== ""}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left"
@@ -793,8 +811,14 @@ class Form extends Component {
         break;
       case "select":
         {
-          let xs,sm,md,lg,xl = 12;
-            [xs, sm, md, lg, xl] = this.CalculSize(this.CalculMaxLength(item.possibles));
+          let xs,
+            sm,
+            md,
+            lg,
+            xl = 12;
+          [xs, sm, md, lg, xl] = this.CalculSize(
+            this.CalculMaxLength(item.possibles)
+          );
           return (
             <Grid key={item.id} item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <div>
@@ -802,7 +826,7 @@ class Form extends Component {
                   isSearchable
                   placeholder={this.state.data[index]["label"]}
                   required={this.state.data[index]["required"]}
-                  error={this.state.data[index]["error"] != ""}
+                  error={this.state.data[index]["error"] !== ""}
                   fullWidth
                   onChange={selectedOption =>
                     this.handleSelectMultiChange(selectedOption, item.id)
@@ -811,13 +835,13 @@ class Form extends Component {
                   variant={this.state.data[index]["variant"]}
                   margin="normal"
                   helperText={
-                    this.state.data[index]["helperText"] != ""
+                    this.state.data[index]["helperText"] !== ""
                       ? this.state.data[index]["helperText"]
                       : null
                   }
                 />
                 <Snackbar
-                  open={this.state.data[index].error != ""}
+                  open={this.state.data[index].error !== ""}
                   anchorOrigin={{
                     vertical: "bottom",
                     horizontal: "left"
@@ -846,17 +870,21 @@ class Form extends Component {
     }
   };
 
-  sendData = ()=>{
-    this.props.sendData(this.state.data);
-  }
+  sendData = () => {
+    this.props.sendData(
+      this.state.data.map(item => {
+        return {
+          id: item.id,
+          value: item.value
+        };
+      })
+    );
+  };
   render() {
     const obj = this.CreateObject();
     return (
       <Card style={{ margin: 4, padding: 4, paddingBottom: 100 }}>
-      <form onChange={this.sendData}>
-      {obj}
-      </form>
-      
+        <form onChange={this.sendData}>{obj}</form>
       </Card>
     );
   }
