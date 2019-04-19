@@ -7,7 +7,8 @@ import {
   FormGroup,
   Checkbox,
   Grid,
-  Card
+  Card,
+  InputAdornment
 } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { Error, RestaurantMenuSharp } from "@material-ui/icons/";
@@ -77,7 +78,7 @@ class _Input extends Component {
         ? this.CalculSize(size[0] + size[1] + 1)
         : this.CalculSize(length);
 
-    icon = icon ? <Icon>{icon}</Icon> : null;
+    icon = icon !== undefined ? icon : null;
 
     switch (type) {
       case "int":
@@ -103,6 +104,13 @@ class _Input extends Component {
                 InputProps={{
                   endAdornment: suffixe !== undefined ? suffixe : null
                 }}
+                InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+             {icon}
+            </InputAdornment>
+          ),
+        }}
               />
             </Grid>
           );
@@ -136,6 +144,13 @@ class _Input extends Component {
                 inputProps={{
                   step: size !== undefined ? 1 / Math.pow(10, size[1]) : 1
                 }}
+                InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+             {icon}
+            </InputAdornment>
+          ),
+        }}
               />
             </Grid>
           );
@@ -167,6 +182,13 @@ class _Input extends Component {
                 InputProps={{
                   endAdornment: suffixe !== undefined ? suffixe : null
                 }}
+                InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+             {icon}
+            </InputAdornment>
+          ),
+        }}
               />
             </Grid>
           );
@@ -197,6 +219,49 @@ class _Input extends Component {
                 InputProps={{
                   endAdornment: suffixe !== undefined ? suffixe : null
                 }}
+                InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+             {icon}
+            </InputAdornment>
+          ),
+        }}
+              />
+            </Grid>
+          );
+        }
+        break;
+        case "email":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <TextField
+                  required={required !== undefined ? required : false}
+                onChange={
+                  onchange !== undefined
+                    ? e => onchange(e, id, e.target.value)
+                    : null
+                }
+                id={id}
+                label={label ? label : null}
+                type="email"
+               
+                fullWidth
+                helperText={helperText !== "" ? helperText : null}
+                error={error !== "" && error !== undefined}
+                defaultValue={value !== "" || value !== undefined ? value : ""}
+                variant={variant ? variant : "standard"}
+                margin="normal"
+                InputProps={{
+                  endAdornment: suffixe !== undefined ? suffixe : null
+                }}
+                InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+             {icon}
+            </InputAdornment>
+          ),
+        }}
               />
             </Grid>
           );
@@ -237,6 +302,13 @@ class _Input extends Component {
                   InputProps={{
                     endAdornment: suffixe !== undefined ? suffixe : null
                   }}
+                  InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+             {icon}
+            </InputAdornment>
+          ),
+        }}
                 />
               </MuiPickersUtilsProvider>
             </Grid>
@@ -290,6 +362,13 @@ class _Input extends Component {
                   InputProps={{
                     endAdornment: suffixe !== undefined ? suffixe : null
                   }}
+                  InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+             {icon}
+            </InputAdornment>
+          ),
+        }}
                 />
               </MuiPickersUtilsProvider>
             </Grid>
@@ -335,6 +414,13 @@ class _Input extends Component {
                   InputProps={{
                     endAdornment: suffixe !== undefined ? suffixe : null
                   }}
+                  InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+             {icon}
+            </InputAdornment>
+          ),
+        }}
                 />
               </MuiPickersUtilsProvider>
             </Grid>
@@ -461,6 +547,13 @@ class _Input extends Component {
                 error={error !== "" && error !== undefined}
                 variant={variant ? variant : "standard"}
                 margin="normal"
+                InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+             {icon}
+            </InputAdornment>
+          ),
+        }}
               />
             </Grid>
           );
@@ -495,6 +588,13 @@ class _Input extends Component {
                   value !== "" || value !== undefined ? value : "#000"
                 }
                 fullWidth
+                InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+             {icon}
+            </InputAdornment>
+          ),
+        }}
               />
             </Grid>
           );
