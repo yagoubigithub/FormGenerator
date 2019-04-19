@@ -1,0 +1,512 @@
+import React, { Component } from "react";
+import Icon from "@material-ui/core/Icon";
+
+import {
+  TextField,
+  Snackbar,
+  FormGroup,
+  Checkbox,
+  Grid,
+  Card
+} from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import { Error, RestaurantMenuSharp } from "@material-ui/icons/";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+
+import ColorPicker from "material-ui-color-picker";
+
+import {
+  MuiPickersUtilsProvider,
+  TimePicker,
+  DatePicker,
+  DateTimePicker
+} from "material-ui-pickers";
+import Select from "react-select";
+
+import DateFnsUtils from "@date-io/date-fns";
+import frLocale from "date-fns/locale/fr";
+import ruLocale from "date-fns/locale/ru";
+import enLocale from "date-fns/locale/en-US";
+import { componentFromStreamWithConfig } from "recompose";
+
+class Input extends Component {
+  state = {};
+
+  CalculSize = length => {
+    if (length < 6) {
+      return [6, 3, 2, 2, 2, 2];
+    } else if (length < 20) {
+      return [6, 6, 3, 3, 3, 3];
+    } else if (length < 50) {
+      return [12, 9, 6, 6, 6, 6];
+    } else if (length < 70) {
+      return [12, 12, 9, 9, 9, 9];
+    } else {
+      return [12, 12, 12, 12, 12, 12];
+    }
+  };
+  Input = () => {
+    let {
+      id,
+      type,
+      label,
+      value,
+      length,
+      possibles,
+      size,
+      variant,
+      suffixe,
+      icon,
+
+      helperText,
+      error,
+      required,
+      onchange
+    } = this.props;
+
+    this.setState({ [id]: value !== undefined ? value : null });
+    length = length ? length : 15;
+    let [xs, sm, md, lg, xl] =
+      size != undefined
+        ? this.CalculSize(size[0] + size[1] + 1)
+        : this.CalculSize(length);
+
+    icon = icon ? <Icon>{icon}</Icon> : null;
+
+    switch (type) {
+      case "int":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <TextField
+                required={required ? required : false}
+                onChange={
+                  onchange !== undefined
+                    ? e => onchange(e, id, e.target.value)
+                    : null
+                }
+                id={id}
+                label={label ? label : null}
+                type="number"
+                fullWidth
+                helperText={helperText !== "" ? helperText : null}
+                error={error !== "" && error !== undefined}
+                defaultValue={value !== 0 || value !== undefined ? value : 0}
+                variant={variant ? variant : "outlined"}
+                margin="normal"
+                InputProps={{
+                  endAdornment: suffixe !== undefined ? suffixe : null
+                }}
+              />
+            </Grid>
+          );
+        }
+
+        break;
+
+      case "decimale":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <TextField
+                required={required ? required : false}
+                onChange={
+                  onchange !== undefined
+                    ? e => onchange(e, id, e.target.value)
+                    : null
+                }
+                id={id}
+                label={label ? label : null}
+                type="number"
+                fullWidth
+                helperText={helperText !== "" ? helperText : null}
+                error={error !== "" && error !== undefined}
+                defaultValue={value !== 0 || value !== undefined ? value : 0}
+                variant={variant ? variant : "outlined"}
+                margin="normal"
+                InputProps={{
+                  endAdornment: suffixe !== undefined ? suffixe : null
+                }}
+                inputProps={{
+                  step: size !== undefined ? 1 / Math.pow(10, size[1]) : 1
+                }}
+              />
+            </Grid>
+          );
+        }
+        break;
+      case "varchar":
+      case "text":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <TextField
+                required={required ? required : false}
+                onChange={
+                  onchange !== undefined
+                    ? e => onchange(e, id, e.target.value)
+                    : null
+                }
+                id={id}
+                label={label ? label : null}
+                type="text"
+                multiline={type === "text"}
+                rows={type === "text" ? 4 : null}
+                fullWidth
+                helperText={helperText !== "" ? helperText : null}
+                error={error !== "" && error !== undefined}
+                defaultValue={value !== "" || value !== undefined ? value : ""}
+                variant={variant ? variant : "standard"}
+                margin="normal"
+                InputProps={{
+                  endAdornment: suffixe !== undefined ? suffixe : null
+                }}
+              />
+            </Grid>
+          );
+        }
+        break;
+      case "password":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <TextField
+                required={required ? required : false}
+                onChange={
+                  onchange !== undefined
+                    ? e => onchange(e, id, e.target.value)
+                    : null
+                }
+                id={id}
+                label={label ? label : null}
+                type="password"
+                multiline={type === "text"}
+                rows={type === "text" ? 4 : null}
+                fullWidth
+                helperText={helperText !== "" ? helperText : null}
+                error={error !== "" && error !== undefined}
+                defaultValue={value !== "" || value !== undefined ? value : ""}
+                variant={variant ? variant : "standard"}
+                margin="normal"
+                InputProps={{
+                  endAdornment: suffixe !== undefined ? suffixe : null
+                }}
+              />
+            </Grid>
+          );
+        }
+        break;
+
+      case "date":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
+                <DatePicker
+                  required={required ? required : false}
+                  onChange={
+                    onchange !== undefined
+                      ? date => {
+                          const dformat = [
+                            date.getFullYear(),
+                            date.getMonth() + 1 >= 10
+                              ? date.getMonth() + 1
+                              : "0" + (date.getMonth() + 1),
+                            date.getDate() >= 10
+                              ? date.getDate()
+                              : "0" + date.getDate()
+                          ].join("-");
+                          onchange(null, id, dformat);
+                        }
+                      : null
+                  }
+                  id={id}
+                  label={label ? label : null}
+                  fullWidth
+                  helperText={helperText !== "" ? helperText : null}
+                  error={error !== "" && error !== undefined}
+                  value={value !== "" || value !== undefined ? value : null}
+                  variant={variant ? variant : "standard"}
+                  margin="normal"
+                  InputProps={{
+                    endAdornment: suffixe !== undefined ? suffixe : null
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </Grid>
+          );
+        }
+        break;
+      case "dateTime":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
+                <DateTimePicker
+                  required={required ? required : false}
+                  onChange={
+                    onchange !== undefined
+                      ? date => {
+                          const dformat =
+                            [
+                              date.getFullYear(),
+                              date.getMonth() + 1 >= 10
+                                ? date.getMonth() + 1
+                                : "0" + (date.getMonth() + 1),
+                              date.getDate() >= 10
+                                ? date.getDate()
+                                : "0" + date.getDate()
+                            ].join("-") +
+                            "T" +
+                            [
+                              date.getHours() >= 10
+                                ? date.getHours()
+                                : "0" + date.getHours(),
+                              date.getMinutes() >= 10
+                                ? date.getMinutes()
+                                : "0" + date.getMinutes(),
+                              date.getSeconds() >= 10
+                                ? date.getSeconds()
+                                : "0" + date.getSeconds()
+                            ].join(":");
+                          onchange(null, id, dformat);
+                        }
+                      : null
+                  }
+                  id={id}
+                  label={label ? label : null}
+                  fullWidth
+                  helperText={helperText !== "" ? helperText : null}
+                  error={error !== "" && error !== undefined}
+                  value={value !== "" || value !== undefined ? value : null}
+                  variant={variant ? variant : "standard"}
+                  margin="normal"
+                  InputProps={{
+                    endAdornment: suffixe !== undefined ? suffixe : null
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </Grid>
+          );
+        }
+        break;
+
+      case "time":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
+                <TimePicker
+                  required={required ? required : false}
+                  onChange={
+                    onchange !== undefined
+                      ? date => {
+                          const format = [
+                            date.getHours() >= 10
+                              ? date.getHours()
+                              : "0" + date.getHours(),
+                            date.getMinutes() >= 10
+                              ? date.getMinutes()
+                              : "0" + date.getMinutes()
+                          ].join(":");
+
+                          onchange(null, id, format);
+                        }
+                      : null
+                  }
+                  id={id}
+                  label={label ? label : null}
+                  fullWidth
+                  helperText={helperText !== "" ? helperText : null}
+                  error={error !== "" && error !== undefined}
+                  value={
+                    value !== "" || value !== undefined
+                      ? "2019-04-01T" + value
+                      : null
+                  }
+                  variant={variant ? variant : "standard"}
+                  margin="normal"
+                  InputProps={{
+                    endAdornment: suffixe !== undefined ? suffixe : null
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </Grid>
+          );
+        }
+        break;
+
+      case "enum":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <FormControl required={required ? required : false}>
+                <FormLabel>{label ? label : null}</FormLabel>
+                <RadioGroup
+                  id={id}
+                  defaultValue={
+                    value !== "" || value !== undefined ? value : null
+                  }
+                  onChange={
+                    onchange !== undefined
+                      ? (e, _value) => {
+                          onchange(e, id, _value);
+                        }
+                      : null
+                  }
+                >
+                  {possibles !== undefined
+                    ? possibles.map((val, index) => {
+                        return (
+                          <FormControlLabel
+                            key={val.label + index}
+                            value={val.value}
+                            control={<Radio />}
+                            label={val.label}
+                          />
+                        );
+                      })
+                    : null}
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+          );
+        }
+        break;
+
+      case "set":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <FormControl required={required ? required : false}>
+                <FormLabel>{label ? label : null}</FormLabel>
+                <FormGroup id={id}>
+                  {possibles !== undefined
+                    ? possibles.map((val, index) => {
+                        return (
+                          <FormControlLabel
+                            key={val.label + index}
+                            control={
+                              <Checkbox
+                                defaultChecked={false}
+                                value={val.value}
+                                onChange={
+                                  onchange !== undefined
+                                    ? e => {
+                                        const values = this.state[id];
+                                        if (
+                                          values.find(
+                                            item => val.value === item
+                                          ) !== undefined
+                                        ) {
+                                          values.splice(
+                                            values.findIndex(
+                                              item => val.value === item
+                                            ),
+                                            1
+                                          );
+                                        } else {
+                                          values.push(val.value);
+                                        }
+
+                                        this.setState({ [id]: values });
+                                        onchange(e, id, this.state[id]);
+                                      }
+                                    : null
+                                }
+                              />
+                            }
+                            label={val.label}
+                          />
+                        );
+                      })
+                    : null}
+                </FormGroup>
+              </FormControl>
+            </Grid>
+          );
+        }
+        break;
+      case "select":
+      case "select-multi":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <Select
+                isSearchable
+                isMulti={type === "select-multi" ? true : false}
+                placeholder={label ? label : ""}
+                required={required ? required : false}
+                onChange={
+                  onchange !== undefined
+                    ? e => {
+                        onchange(null, id, e);
+                      }
+                    : null
+                }
+                id={id}
+                label={label ? label : null}
+                options={possibles !== undefined ? possibles : null}
+                fullWidth
+                helperText={helperText !== "" ? helperText : null}
+                error={error !== "" && error !== undefined}
+                variant={variant ? variant : "standard"}
+                margin="normal"
+              />
+            </Grid>
+          );
+        }
+        break;
+
+      case "color":
+        {
+          return (
+            <Grid
+              item
+              xs={xs}
+              sm={sm}
+              md={md}
+              lg={lg}
+              xl={xl}
+              style={{ padding: 10 }}
+            >
+              <ColorPicker
+                required={required ? required : false}
+                onChange={
+                  onchange !== undefined
+                    ? color => {
+                      if(color !== undefined)
+                        onchange(null, id, color);
+                      }
+                    : null
+                }
+                id={id}
+                name={label ? label : null}
+                defaultValue={
+                  value !== "" || value !== undefined ? value : "#000"
+                }
+                fullWidth
+              />
+            </Grid>
+          );
+        }
+        break;
+      default:
+        break;
+    }
+  };
+  _input = null;
+  componentWillMount() {
+    this._input = this.Input();
+  }
+  render() {
+    return this._input;
+  }
+}
+
+export default Input;
