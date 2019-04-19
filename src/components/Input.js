@@ -34,7 +34,7 @@ import ruLocale from "date-fns/locale/ru";
 import enLocale from "date-fns/locale/en-US";
 import { componentFromStreamWithConfig } from "recompose";
 
-class Input extends Component {
+class _Input extends Component {
   state = {};
 
   CalculSize = length => {
@@ -71,6 +71,7 @@ class Input extends Component {
 
     this.setState({ [id]: value !== undefined ? value : null });
     length = length ? length : 15;
+    label = label === undefined ? " " : label;
     let [xs, sm, md, lg, xl] =
       size != undefined
         ? this.CalculSize(size[0] + size[1] + 1)
@@ -84,7 +85,7 @@ class Input extends Component {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <TextField
-                required={required ? required : false}
+                required={required !== undefined ? required : false}
                 onChange={
                   onchange !== undefined
                     ? e => onchange(e, id, e.target.value)
@@ -114,7 +115,7 @@ class Input extends Component {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <TextField
-                required={required ? required : false}
+                 required={required !== undefined ? required : false}
                 onChange={
                   onchange !== undefined
                     ? e => onchange(e, id, e.target.value)
@@ -146,7 +147,7 @@ class Input extends Component {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <TextField
-                required={required ? required : false}
+                  required={required !== undefined ? required : false}
                 onChange={
                   onchange !== undefined
                     ? e => onchange(e, id, e.target.value)
@@ -176,7 +177,7 @@ class Input extends Component {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <TextField
-                required={required ? required : false}
+                  required={required !== undefined ? required : false}
                 onChange={
                   onchange !== undefined
                     ? e => onchange(e, id, e.target.value)
@@ -208,7 +209,7 @@ class Input extends Component {
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
                 <DatePicker
-                  required={required ? required : false}
+                    required={required !== undefined ? required : false}
                   onChange={
                     onchange !== undefined
                       ? date => {
@@ -248,7 +249,7 @@ class Input extends Component {
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
                 <DateTimePicker
-                  required={required ? required : false}
+                    required={required !== undefined ? required : false}
                   onChange={
                     onchange !== undefined
                       ? date => {
@@ -302,7 +303,7 @@ class Input extends Component {
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
                 <TimePicker
-                  required={required ? required : false}
+                    required={required !== undefined ? required : false}
                   onChange={
                     onchange !== undefined
                       ? date => {
@@ -345,7 +346,9 @@ class Input extends Component {
         {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
-              <FormControl required={required ? required : false}>
+              <FormControl 
+                required={required !== undefined ? required : false}
+              >
                 <FormLabel>{label ? label : null}</FormLabel>
                 <RadioGroup
                   id={id}
@@ -383,7 +386,8 @@ class Input extends Component {
         {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
-              <FormControl required={required ? required : false}>
+              <FormControl   required={required !== undefined ? required : false}
+              >
                 <FormLabel>{label ? label : null}</FormLabel>
                 <FormGroup id={id}>
                   {possibles !== undefined
@@ -441,7 +445,7 @@ class Input extends Component {
                 isSearchable
                 isMulti={type === "select-multi" ? true : false}
                 placeholder={label ? label : ""}
-                required={required ? required : false}
+                required={required !== undefined ? required : false}
                 onChange={
                   onchange !== undefined
                     ? e => {
@@ -476,7 +480,7 @@ class Input extends Component {
               style={{ padding: 10 }}
             >
               <ColorPicker
-                required={required ? required : false}
+                 required={required !== undefined ? required : false}
                 onChange={
                   onchange !== undefined
                     ? color => {
@@ -509,4 +513,4 @@ class Input extends Component {
   }
 }
 
-export default Input;
+export default _Input;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Form from "./components/Form";
-import Input from "./components/Input";
+import  _Input from "./components/Input";
 import { format } from "url";
 import { InputAdornment, Grid } from "@material-ui/core";
 const data = [
@@ -87,20 +87,20 @@ const data = [
     type: "dateTime",
     value: "2019-01-01T00:01:08",
 
-    error: "",
+  
     variant: "outlined",
     required: true,
     helperText: "Date date date dteddhb "
   },
   {
     id: "g",
-    label: "time picker",
+    
     type: "time",
     value: "23:05",
-    error: "",
+  
     variant: "outlined",
-    required: true,
-    helperText: "Date date date dteddhb "
+   
+    
   },
 
   {
@@ -195,7 +195,7 @@ class App extends Component {
   }
   render() {
     const form = data.map(input => (
-      <Input
+      <_Input
       
         possibles={input.possibles}
         helperText={input.helperText}

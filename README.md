@@ -1,29 +1,28 @@
-# Form Generator
+# Input Generator
 
-You give this component array of object as props <Form data={data} /> each object has label and type of the label. The componenet generate a ```Form``` from this array of object.
+You give this component a list of  variable as props ```<_Input  id={input.id}  type={input.type}  /> ```  and she display a textField depend on the type.
 
-### package : 
+### instalation : 
 
  - npm i @material-ui/core
  - npm i @date-io/date-fns date-fns@next
  - npm i material-ui-pickers
  - npm i react-select
  - npm i @material-ui/icons
-###  Object content : 
+###  Variables content : 
 
 | Key | Value | description |
 | ------ | ------ |  ------ |
 | id | string ```unique``` | required in all object ```id != null```
-| label | string  | required in all object ```label != null```
-| type | enum : [int,   decimale,  varchar, text, date, dateTime, time, set, select-multi, select,enum] |
+| label | string  | not required
+| type | enum : [int,   decimale,  varchar, text, date, dateTime, time, set, select-multi, select,enum,password,color] | required in all object ```type != null```
 | size | array : [int,int] | required in int and decimale type |
-| rows | array : [int,int] | required in text type .The first argument is number of rows second argument is maximum number of rows |
-| helperText | string | required in all object ```helperText != null``` |
-| variant | enum : [standard,filled,outlined] | required in all object ```helperText != null``` |
-| error | string | required in all object ```error != null``` . when no error ```error = ""``` |
-| required | enum : [true,false] | required in all object ```required != null``` |
-| length | int | required in type text and varchar. |
-| value | depend to the type :int => int decimale => decimale varchar => varchar text => text date=>date time=>time dateTime=>dateTime enum => string set =>empty array []  select-multi =>empty array [] select => string |required in all object ```value != null``` |
+| helperText | string | not required |
+| variant | enum : [standard,filled,outlined] | not required |
+| error | string | not required |
+| required | enum : [true,false] | not required |
+| length | int | not required |
+| value | depend to the type : <br> int => int <br> decimale => decimale <br> varchar => varchar <br> text => text <br> date=>date <br> time=>time <br> dateTime=>dateTime <br> enum => string <br> set =>empty  array [] <br>  select-multi =>empty array [] <br> select => string |required in all object ```value != null``` |
 
 
 ### Exmple : 
