@@ -1,24 +1,21 @@
 import React, { Component } from "react";
-import Icon from "@material-ui/core/Icon";
 
 import {
   TextField,
-  Snackbar,
   FormGroup,
   Checkbox,
   Grid,
-  Card,
   InputAdornment
 } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import { Error, RestaurantMenuSharp } from "@material-ui/icons/";
+
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import FormHelperText from "@material-ui/core/FormHelperText";
+
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
+import UploadFile from "yagoubi-upload-file";
 import ColorPicker from "material-ui-color-picker";
 
 import {
@@ -31,9 +28,6 @@ import Select from "react-select";
 
 import DateFnsUtils from "@date-io/date-fns";
 import frLocale from "date-fns/locale/fr";
-import ruLocale from "date-fns/locale/ru";
-import enLocale from "date-fns/locale/en-US";
-import { componentFromStreamWithConfig } from "recompose";
 
 class _Input extends Component {
   state = {};
@@ -105,12 +99,10 @@ class _Input extends Component {
                   endAdornment: suffixe !== undefined ? suffixe : null
                 }}
                 InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-             {icon}
-            </InputAdornment>
-          ),
-        }}
+                  startAdornment: (
+                    <InputAdornment position="start">{icon}</InputAdornment>
+                  )
+                }}
               />
             </Grid>
           );
@@ -123,7 +115,7 @@ class _Input extends Component {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <TextField
-                 required={required !== undefined ? required : false}
+                required={required !== undefined ? required : false}
                 onChange={
                   onchange !== undefined
                     ? e => onchange(e, id, e.target.value)
@@ -145,12 +137,10 @@ class _Input extends Component {
                   step: size !== undefined ? 1 / Math.pow(10, size[1]) : 1
                 }}
                 InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-             {icon}
-            </InputAdornment>
-          ),
-        }}
+                  startAdornment: (
+                    <InputAdornment position="start">{icon}</InputAdornment>
+                  )
+                }}
               />
             </Grid>
           );
@@ -162,7 +152,7 @@ class _Input extends Component {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <TextField
-                  required={required !== undefined ? required : false}
+                required={required !== undefined ? required : false}
                 onChange={
                   onchange !== undefined
                     ? e => onchange(e, id, e.target.value)
@@ -183,12 +173,10 @@ class _Input extends Component {
                   endAdornment: suffixe !== undefined ? suffixe : null
                 }}
                 InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-             {icon}
-            </InputAdornment>
-          ),
-        }}
+                  startAdornment: (
+                    <InputAdornment position="start">{icon}</InputAdornment>
+                  )
+                }}
               />
             </Grid>
           );
@@ -199,7 +187,7 @@ class _Input extends Component {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <TextField
-                  required={required !== undefined ? required : false}
+                required={required !== undefined ? required : false}
                 onChange={
                   onchange !== undefined
                     ? e => onchange(e, id, e.target.value)
@@ -220,23 +208,21 @@ class _Input extends Component {
                   endAdornment: suffixe !== undefined ? suffixe : null
                 }}
                 InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-             {icon}
-            </InputAdornment>
-          ),
-        }}
+                  startAdornment: (
+                    <InputAdornment position="start">{icon}</InputAdornment>
+                  )
+                }}
               />
             </Grid>
           );
         }
         break;
-        case "email":
+      case "email":
         {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <TextField
-                  required={required !== undefined ? required : false}
+                required={required !== undefined ? required : false}
                 onChange={
                   onchange !== undefined
                     ? e => onchange(e, id, e.target.value)
@@ -245,7 +231,6 @@ class _Input extends Component {
                 id={id}
                 label={label ? label : null}
                 type="email"
-               
                 fullWidth
                 helperText={helperText !== "" ? helperText : null}
                 error={error !== "" && error !== undefined}
@@ -256,12 +241,29 @@ class _Input extends Component {
                   endAdornment: suffixe !== undefined ? suffixe : null
                 }}
                 InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-             {icon}
-            </InputAdornment>
-          ),
-        }}
+                  startAdornment: (
+                    <InputAdornment position="start">{icon}</InputAdornment>
+                  )
+                }}
+              />
+            </Grid>
+          );
+        }
+        break;
+      case "files":
+      case "file":
+        {
+          return (
+            <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+              <UploadFile
+                id={id}
+                label={label ? label : null}
+                onChange={
+                  onchange !== undefined
+                    ? (files, e) => onchange(e, id, files)
+                    : null
+                }
+                multiple={type === "files"}
               />
             </Grid>
           );
@@ -274,7 +276,7 @@ class _Input extends Component {
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
                 <DatePicker
-                    required={required !== undefined ? required : false}
+                  required={required !== undefined ? required : false}
                   onChange={
                     onchange !== undefined
                       ? date => {
@@ -303,12 +305,10 @@ class _Input extends Component {
                     endAdornment: suffixe !== undefined ? suffixe : null
                   }}
                   InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-             {icon}
-            </InputAdornment>
-          ),
-        }}
+                    startAdornment: (
+                      <InputAdornment position="start">{icon}</InputAdornment>
+                    )
+                  }}
                 />
               </MuiPickersUtilsProvider>
             </Grid>
@@ -321,7 +321,7 @@ class _Input extends Component {
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
                 <DateTimePicker
-                    required={required !== undefined ? required : false}
+                  required={required !== undefined ? required : false}
                   onChange={
                     onchange !== undefined
                       ? date => {
@@ -363,12 +363,10 @@ class _Input extends Component {
                     endAdornment: suffixe !== undefined ? suffixe : null
                   }}
                   InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-             {icon}
-            </InputAdornment>
-          ),
-        }}
+                    startAdornment: (
+                      <InputAdornment position="start">{icon}</InputAdornment>
+                    )
+                  }}
                 />
               </MuiPickersUtilsProvider>
             </Grid>
@@ -382,7 +380,7 @@ class _Input extends Component {
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
               <MuiPickersUtilsProvider utils={DateFnsUtils} locale={frLocale}>
                 <TimePicker
-                    required={required !== undefined ? required : false}
+                  required={required !== undefined ? required : false}
                   onChange={
                     onchange !== undefined
                       ? date => {
@@ -415,12 +413,10 @@ class _Input extends Component {
                     endAdornment: suffixe !== undefined ? suffixe : null
                   }}
                   InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-             {icon}
-            </InputAdornment>
-          ),
-        }}
+                    startAdornment: (
+                      <InputAdornment position="start">{icon}</InputAdornment>
+                    )
+                  }}
                 />
               </MuiPickersUtilsProvider>
             </Grid>
@@ -432,9 +428,7 @@ class _Input extends Component {
         {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
-              <FormControl 
-                required={required !== undefined ? required : false}
-              >
+              <FormControl required={required !== undefined ? required : false}>
                 <FormLabel>{label ? label : null}</FormLabel>
                 <RadioGroup
                   id={id}
@@ -472,8 +466,7 @@ class _Input extends Component {
         {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
-              <FormControl   required={required !== undefined ? required : false}
-              >
+              <FormControl required={required !== undefined ? required : false}>
                 <FormLabel>{label ? label : null}</FormLabel>
                 <FormGroup id={id}>
                   {possibles !== undefined
@@ -548,12 +541,10 @@ class _Input extends Component {
                 variant={variant ? variant : "standard"}
                 margin="normal"
                 InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-             {icon}
-            </InputAdornment>
-          ),
-        }}
+                  startAdornment: (
+                    <InputAdornment position="start">{icon}</InputAdornment>
+                  )
+                }}
               />
             </Grid>
           );
@@ -573,12 +564,11 @@ class _Input extends Component {
               style={{ padding: 10 }}
             >
               <ColorPicker
-                 required={required !== undefined ? required : false}
+                required={required !== undefined ? required : false}
                 onChange={
                   onchange !== undefined
                     ? color => {
-                      if(color !== undefined)
-                        onchange(null, id, color);
+                        if (color !== undefined) onchange(null, id, color);
                       }
                     : null
                 }
@@ -589,12 +579,10 @@ class _Input extends Component {
                 }
                 fullWidth
                 InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-             {icon}
-            </InputAdornment>
-          ),
-        }}
+                  startAdornment: (
+                    <InputAdornment position="start">{icon}</InputAdornment>
+                  )
+                }}
               />
             </Grid>
           );

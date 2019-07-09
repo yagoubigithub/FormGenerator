@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import  _Input from "./components/Input";
 import {  Grid } from "@material-ui/core";
 
-import { Email,PermIdentity,Lock
+import { Email,PermIdentity,Lock,FileCopy
 } from '@material-ui/icons';
 
 const username  = {
@@ -25,6 +25,17 @@ const email  = {
   type : "email",
   value : "",
   length : 50,
+}
+const file  = {
+  id :  "file_id",
+  label : "upload my image",
+  type : "files",
+ 
+ 
+  
+ 
+  
+
 }
 class App extends Component {
  
@@ -63,6 +74,18 @@ class App extends Component {
       onchange={this.onchange}
       label={password.label}
      icon={<Lock />}
+    />
+    <_Input
+      id={file.id}
+      type={file.type}
+      onchange={this.onchange}
+      label={file.label}
+     icon={<FileCopy />}
+     length={50}
+     accepts={file.accepts}
+      maxFiles={file.maxFiles}
+      maxFileSize={file.maxFileSize}
+      minFileSize={file.minFileSize}
     />
     </Grid>;
   }
