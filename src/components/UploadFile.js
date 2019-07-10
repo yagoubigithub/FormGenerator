@@ -276,6 +276,7 @@ class UploadFile extends Component {
       minFileSize,
       label,
       color,
+      id,
 
       icon
     } = this.props;
@@ -299,7 +300,7 @@ class UploadFile extends Component {
           type="file"
           onChange={ref => this.onchange(ref.target.files)}
           style={{ display: "none" }}
-          id="fileupload"
+          id={id}
           multiple={this.props.multiple !== undefined ? multiple : false}
         />
         <div className={"files-container"}>

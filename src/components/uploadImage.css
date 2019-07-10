@@ -1,0 +1,96 @@
+.container-upload-image{
+    display: flex;
+    cursor: pointer;
+}
+.btn-upload-upload-image{
+    position: relative;
+    background: #ccc;
+    width :50px;
+    height: 50px;
+    color : #eee;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border : 1px solid #aaa;
+    
+}
+.images-containe-upload-image{
+    border : 1px solid rgba(0,0,0,0.5);
+    border-left: 0;
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    
+}
+.image-upload-image{
+    color: rgba(0, 0, 0, 0.87);
+    border: none;
+    cursor: default;
+    height: 32px;
+    display: inline-flex;
+    outline: none;
+    padding: 0;
+    font-size: 0.8125rem;
+    box-sizing: border-box;
+    transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    align-items: center;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    white-space: nowrap;
+    border-radius: 16px;
+    vertical-align: middle;
+    justify-content: center;
+    text-decoration: none;
+    background-color: #e0e0e0;
+    padding-right: 5px;
+    margin: 1px;
+}
+.image-upload-image img{
+    color: #616161;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+    margin-right: -4px;
+   
+    overflow: hidden;
+    position: relative;
+    
+    border-radius: 50%;
+    
+}
+.image-name-upload-image{
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 0.8125rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    margin-left: 7px;
+}
+.image-close-upload-image{
+    color: rgba(255,255, 255, 0.26);
+    cursor: pointer;
+   background: #919191;
+   border-radius: 100%;
+  
+   width : 15px;
+   height: 15px;
+   display: flex;
+
+  padding: 2px;
+   justify-content: center;
+   align-items: center;
+   margin-left: 4px;
+   transition: all 0.4s ease-in;
+}
+.image-close-upload-image:hover{
+    background-color: rgba(250,0,0,0.4);
+}
+.popOver-upload-image{
+    width : 200px;
+    position: absolute;
+    background: #616161;
+    bottom: -25px;
+    left : 5px;
+}

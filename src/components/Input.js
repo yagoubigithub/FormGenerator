@@ -28,6 +28,7 @@ import Select from "react-select";
 
 import DateFnsUtils from "@date-io/date-fns";
 import frLocale from "date-fns/locale/fr";
+import UploadImages from "./UploadImages";
 
 class _Input extends Component {
   state = {};
@@ -270,6 +271,27 @@ class _Input extends Component {
           );
         }
         break;
+
+        case "image":
+          case "images":
+            {
+              return (
+                <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
+                  <UploadImages
+                    id={id}
+                    label={label ? label : null}
+                    onChange={
+                      onchange !== undefined
+                        ? (files, e) => onchange(e, id, files)
+                        : null
+                    }
+                    multiple={type === "files"}
+                    error={error !== "" && error !== undefined}
+                  />
+                </Grid>
+              );
+            }
+            break;
 
       case "date":
         {
