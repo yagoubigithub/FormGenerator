@@ -15,7 +15,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
-import UploadFile from "yagoubi-upload-file";
+import UploadFile from "./UploadFile";
 import ColorPicker from "material-ui-color-picker";
 
 import {
@@ -264,6 +264,7 @@ class _Input extends Component {
                     : null
                 }
                 multiple={type === "files"}
+                error={error !== "" && error !== undefined}
               />
             </Grid>
           );

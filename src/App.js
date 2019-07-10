@@ -10,7 +10,7 @@ const username  = {
   label : "Username",
   type : "varchar",
   value : "",
-  length : 50,
+  length : 50
 }
 const password  = {
   id :  "password_id",
@@ -18,6 +18,7 @@ const password  = {
   type : "password",
   value : "",
   length : 50,
+  error : "Hello error"
 }
 const email  = {
   id :  "email_id",
@@ -31,7 +32,7 @@ const file  = {
   label : "upload my image",
   type : "files",
  
- 
+ error : "erro files"
   
  
   
@@ -54,6 +55,7 @@ class App extends Component {
       onchange={this.onchange}
       label={username.label}
      icon={<PermIdentity />}
+     error={username.error}
     />
 
 <_Input
@@ -64,6 +66,7 @@ class App extends Component {
       onchange={this.onchange}
       label={email.label}
      icon={<Email />}
+     error={email.error}
     />
 
 <_Input
@@ -74,6 +77,7 @@ class App extends Component {
       onchange={this.onchange}
       label={password.label}
      icon={<Lock />}
+     error={password.error}
     />
     <_Input
       id={file.id}
@@ -86,6 +90,7 @@ class App extends Component {
       maxFiles={file.maxFiles}
       maxFileSize={file.maxFileSize}
       minFileSize={file.minFileSize}
+      error={file.error}
     />
     </Grid>;
   }
