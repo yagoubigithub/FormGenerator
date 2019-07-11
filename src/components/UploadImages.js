@@ -171,6 +171,23 @@ export default class UploadImages extends Component {
     this.setState({ files });
     setTimeout(this.ConverToDataUrl,22);
   };
+
+  removeImages = name => {
+    const filesTemp = [...this.state.files];
+    const urlsTemp = [...this.state.urls];
+
+    const files = filesTemp.filter(file=>{
+      return file.name !== name;
+    });
+    
+   
+    this.setState({ files });
+   
+    const urls = urlsTemp.filter(url=>{
+      return url.name !== name;
+    });
+    this.setState({ urls });
+  };
   dataURLtoFile = (dataurl, filename) => {
     let arr = dataurl.split(","),
       mime = arr[0].match(/:(.*?);/)[1],
@@ -239,7 +256,7 @@ export default class UploadImages extends Component {
               <div className="image-upload-image" key={uuid()}>
                 <img src={url.url} />
                 <span className="image-name-upload-image">{url.name}</span>
-                <span className={"image-close-upload-image"}>
+                <span className={"image-close-upload-image"} onClick={()=>this.removeImages(url.name)}>
                   <Close fontSize="small" />
                 </span>
               </div>
