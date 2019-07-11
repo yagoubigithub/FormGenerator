@@ -40,10 +40,10 @@ const file  = {
 const image  = {
   id :  "image_id",
   label : "upload my image",
-  type : "image",
+  type : "images",
  
- error : "erro image"
-  
+ error : "erro image",
+
  
   
 
@@ -108,13 +108,14 @@ class App extends Component {
       onchange={this.onchange}
       label={image.label}
      
-    multiple={image.multiple}
+    
       maxFiles={image.maxFiles}
       maxFileSize={image.maxFileSize}
       minFileSize={image.minFileSize}
       error={image.error}
       length={100}
     />
+  
     </Grid>;
   }
 }

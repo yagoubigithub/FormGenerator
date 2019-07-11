@@ -285,7 +285,7 @@ class _Input extends Component {
                         ? (files, e) => onchange(e, id, files)
                         : null
                     }
-                    multiple={type === "files"}
+                    multiple={type === "images"}
                     error={error !== "" && error !== undefined}
                   />
                 </Grid>

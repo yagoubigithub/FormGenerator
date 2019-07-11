@@ -301,7 +301,7 @@ class UploadFile extends Component {
           onChange={ref => this.onchange(ref.target.files)}
           style={{ display: "none" }}
           id={id}
-          multiple={this.props.multiple !== undefined ? multiple : false}
+         
         />
         <div className={"files-container"}>
           {this.state.files.length > 0 ? (
