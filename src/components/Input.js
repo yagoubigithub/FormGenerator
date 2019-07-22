@@ -8,6 +8,8 @@ import {
   InputAdornment
 } from "@material-ui/core";
 
+import UploadImages from 'yagoubi-upload-images';
+import UploadImageV3 from './UploadImageV3';
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 
@@ -28,7 +30,7 @@ import Select from "react-select";
 
 import DateFnsUtils from "@date-io/date-fns";
 import frLocale from "date-fns/locale/fr";
-import UploadImages from "./UploadImages";
+import UploadImagesV2 from "./UploadImageV2";
 
 class _Input extends Component {
   state = {};
@@ -277,9 +279,9 @@ class _Input extends Component {
             {
               return (
                 <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
-                  <UploadImages
+                  <UploadImageV3
                     id={id}
-                    label={label ? label : null}
+                    placeholder={label ? label : null}
                     onChange={
                       onchange !== undefined
                         ? (files, e) => onchange(e, id, files)

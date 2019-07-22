@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import "./uploadImage.css";
+import "./uploadImageV2.css";
 import { CameraAlt, Close } from "@material-ui/icons";
 import { Dialog, IconButton } from "@material-ui/core";
 import Photo from "./Photo";
 
 import uuid from "uuid";
-export default class UploadImages extends Component {
+export default class UploadImagesV2 extends Component {
   state = {
     open: false,
     files: [],
@@ -159,7 +159,8 @@ export default class UploadImages extends Component {
         ReaderObj.readAsDataURL(file);
       }
     });
-   
+    
+    this.setState({ open: false });
   };
   capture = imgSrc => {
     const file = this.dataURLtoFile(imgSrc, uuid() + ".png");
@@ -236,22 +237,21 @@ export default class UploadImages extends Component {
             >
               <CameraAlt />
             </div>
-           
-              <label className="btn-choose-upload-image" htmlFor={this.props.id}  >
+            
+              <label htmlFor={this.props.id} className="btn-choose-upload-image">
                 Upload Image From your coputer
               </label>
-             
-            
-            <input
+              <input
                 type="file"
                 onChange={ref => this.onchange(ref.target.files)}
                 style={{ display: "none" }}
                 id={this.props.id}
               />
+            
           </div>
         </div>
 
-        <div className="images-containe-upload-image">
+        <div className="images-container-upload-image">
           {this.state.urls.map(url => {
             return (
               <div className="image-upload-image" key={uuid()}>
@@ -264,15 +264,6 @@ export default class UploadImages extends Component {
             );
           })}
 
-          {/*<div className="image-upload-image">
-            <img src="https://www.online-image-editor.com/help/images/exmpl_start.jpg" />
-            <span className="image-name-upload-image">
-              lorem lorem lorem lorem lorem
-            </span>
-            <span className={"image-close-upload-image"}>
-              <Close fontSize="small" />
-            </span>
-          </div> */}
         </div>
       </div>
     );

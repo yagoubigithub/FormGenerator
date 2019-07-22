@@ -290,7 +290,7 @@ class UploadFile extends Component {
           className={"btn-upload"}
           style={{ backgroundColor: color }}
         >
-          <label htmlFor="fileupload">
+          <label htmlFor={id}>
             <AccessAlarms className={"svg-icon"} />
             {/*<img src={PublishIcon} className={styles["svg-icon"]} /> */}
             <span>{label}</span>
@@ -319,7 +319,7 @@ class UploadFile extends Component {
               );
             })
           ) : (
-            <label htmlFor="fileupload" className={"placeholder"}>
+            <label htmlFor={id} className={"placeholder"}>
               {label}
             </label>
           )}

@@ -113,9 +113,10 @@ class App extends Component {
       maxFileSize={image.maxFileSize}
       minFileSize={image.minFileSize}
       error={image.error}
-      length={100}
+      length={50}
     />
-  
+  <input type="file" accept="image/*" capture="camera" />
+
     </Grid>;
   }
 }
