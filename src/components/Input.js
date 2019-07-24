@@ -8,7 +8,6 @@ import {
   InputAdornment
 } from "@material-ui/core";
 
-import UploadImages from 'yagoubi-upload-images';
 import UploadImageV3 from './UploadImageV3';
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
@@ -60,11 +59,14 @@ class _Input extends Component {
       variant,
       suffixe,
       icon,
-
+      oldImages,
       helperText,
       error,
+      path,
       required,
-      onchange
+      onchange,
+      onDelete,
+      onRest
     } = this.props;
 
     this.setState({ [id]: value !== undefined ? value : null });
@@ -219,7 +221,7 @@ class _Input extends Component {
             </Grid>
           );
         }
-        break;
+        
       case "email":
         {
           return (
@@ -252,7 +254,7 @@ class _Input extends Component {
             </Grid>
           );
         }
-        break;
+        
       case "files":
       case "file":
         {
@@ -272,8 +274,7 @@ class _Input extends Component {
             </Grid>
           );
         }
-        break;
-
+       
         case "image":
           case "images":
             {
@@ -284,16 +285,29 @@ class _Input extends Component {
                     placeholder={label ? label : null}
                     onChange={
                       onchange !== undefined
-                        ? (files, e) => onchange(e, id, files)
+                        ? (e,images) => onchange( e, id, images)
                         : null
                     }
                     multiple={type === "images"}
                     error={error !== "" && error !== undefined}
+                    path={path !== "" && path !== undefined ? path : null}
+                    oldImages={oldImages !== "" && oldImages !== undefined ? oldImages : null}
+                    onDelete={
+                      onDelete !== undefined
+                        ? (name) => onDelete(name)
+                        : null
+                    }     
+                    onRest={
+                      onRest !== undefined
+                        ? () => onRest()
+                        : null
+                    }
+                   icon={icon}
                   />
                 </Grid>
               );
             }
-            break;
+            
 
       case "date":
         {

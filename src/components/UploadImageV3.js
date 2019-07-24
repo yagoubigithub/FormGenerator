@@ -1,340 +1,275 @@
 import React, { Component } from "react";
 
+import "./uploadImageV3.css";
 
-import  "./uploadImageV3.css";
-
-
-import {CameraAlt, Close,Publish} from "@material-ui/icons";
-
+import { CameraAlt, Close, Publish } from "@material-ui/icons";
+import { Dialog } from "@material-ui/core";
 
 export default class UploadImageV3 extends Component {
-  
-    state = {
-      open: false,
-      images: [],
-      isMobile: false,
-      urls: []
-    };
-    openPopOver = () => {
-      this.setState({ open: !this.state.open });
-    };
-  
-    componentWillMount() {
-      if (
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        )
-      ) {
-        // if is mobile
-        this.setState({ isMobile: true });
-      }
+  state = {
+    open: false,
+    images: [],
+    isMobile: false,
+    oldImages: [],
+    openImageDialog: false,
+    image: null
+  };
+
+  openImage = ({ image, type }) => {
+    if (type === "new") {
+      this.setState({ image });
+    } else {
+      const url = `${this.props.path}${image}`;
+      this.setState({ image: url });
     }
-    clickOpenFromDevice = (id) => {
-      if (!this.state.isMobile)
-        document.getElementById(id).click();
-    };
-    onChange = (ref, image) => {
-      let images = [...this.state.images];
-  
-      if (this.props.multiple === undefined || this.props.multiple === false) {
-        console.log(this.props.multiple);
-        images = [];
-      }
-  
-      if (images.filter(img => image[0].name === img.name).length > 0) {
-        return;
-      }
-  
-      if (this.props.maxImageSize !== undefined) {
-        if (image[0].size < this.props.maxImageSize) {
-          //Min image Size :
-          if (this.props.minImageSize !== undefined) {
-            if (image[0].size > this.props.minImageSize) {
-              //Tes Max images
-              if (this.props.maxImages !== undefined) {
-                if (images.length < this.props.maxImages) {
-                  images.push(image[0]);
-                  this.setState({ images });
-                  this.converToDataUrlV2(image[0]);
-                } else {
-                  //error maxImages
-                  this.onError({
-                    type: "maxImages",
-                    message:
-                      "The maximum number of images is : " + this.props.maxImages
-                  });
-                }
-              } else {
-                //fourth else
-                images.push(image[0]);
-                this.setState({ images });
-                this.converToDataUrlV2(image[0]);
-              }
-            } else {
-              //error min size
-              this.onError({
-                type: "minImageSize",
-                message:
-                  "The minimum size of image is : " + this.props.minImageSize
-              });
+    this.handleCloseImageDialog();
+  };
+  openPopOver = () => {
+    this.setState({ open: !this.state.open });
+  };
+  handleCloseImageDialog = () => {
+    this.setState({ openImageDialog: !this.state.openImageDialog });
+  };
+
+  componentWillMount() {
+    if (
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      // if is mobile
+      this.setState({ isMobile: true });
+    }
+    const { id } = this.props.id;
+
+    const id_upload_from_camera = id
+      ? `${id}_upload_from_camera-${this.uid()}`
+      : `${this.uid()}_upload_from_camera-${this.uid()}`;
+
+    const id_upload_from_device = id
+      ? `${id}_upload_from_device-${this.uid()}`
+      : `${this.uid()}_upload_from_device-${this.uid()}`;
+    this.setState({ id_upload_from_camera, id_upload_from_device });
+    const oldImages = [...this.props.oldImages];
+    if (oldImages !== null) this.setState({ oldImages });
+  }
+
+  clickOpenFromDevice = id => {
+    if (!this.state.isMobile) document.getElementById(id).click();
+  };
+  onChange = event => {
+    let files = event.target.files;
+    let images = [...this.state.images];
+
+    if (!this.props.multiple) {
+      images = [];
+    }
+    Object.keys(files).map(i => {
+      const image = files[i];
+      //console.log(image);
+      if (images.filter(img => img.name === image.name).length === 0)
+        images.push(image);
+      this.setState({ images });
+    });
+
+    this.setState({ open: false });
+    if (this.props.onChange !== null) this.props.onChange(event, images);
+  };
+  uid = () => {
+    const uid = `${Math.random()
+      .toString(36)
+      .slice(2)}-${Date.now().toString(36)}`;
+
+    return uid;
+  };
+
+  onRest = () => {
+    document.getElementById(this.state.id_upload_from_camera).value = "";
+    document.getElementById(this.state.id_upload_from_device).value = "";
+    const images = [];
+    this.setState({ images });
+    if (this.props.onRest !== null) this.props.onRest();
+  };
+  removeImages = name => {
+    const imagesTemp = [...this.state.images];
+
+    const images = imagesTemp.filter(image => {
+      return image.name !== name;
+    });
+
+    this.setState({ images });
+
+    if (this.props.onChange !== null) this.props.onChange(images);
+  };
+  onDelete = name => {
+    const oldImagesTemp = [...this.state.oldImages];
+
+    const oldImages = oldImagesTemp.filter(image => {
+      return image !== name;
+    });
+    this.setState({ oldImages });
+    if (this.props.onDelete !== null) this.props.onDelete(name);
+  };
+
+  render() {
+    const { style, placeholder, path } = this.props;
+
+    const color = this.props.color ? this.props.color : "#0074D9";
+    const icon = this.props.icon ? this.props.icon : <CameraAlt />;
+    return (
+      <div style={style ? style : null}>
+        <div className={"container-upload-image"}>
+          <div
+            className={"btn-upload-upload-image"}
+            onClick={
+              this.state.isMobile
+                ? this.openPopOver
+                : () =>
+                    this.clickOpenFromDevice(this.state.id_upload_from_device)
             }
-          } else {
-            //third else
-            //Tes Max images
-            if (this.props.maxImages !== undefined) {
-              if (images.length < this.props.maxImages) {
-                images.push(image[0]);
-                this.setState({ images });
-                this.converToDataUrlV2(image[0]);
-              } else {
-                //error maxImages
-                this.onError({
-                  type: "maxImages",
-                  message:
-                    "The maximum number of images is : " + this.props.maxImages
-                });
-              }
-            } else {
-              images.push(image[0]);
-              this.setState({ images });
-              this.converToDataUrlV2(image[0]);
-            }
-          }
-        } else {
-          //error max size
-          this.onError({
-            type: "maxImageSize",
-            message: "The maximum size of image is : " + this.props.maxImageSize
-          });
-        }
-      } else {
-        //second else
-        if (this.props.minImageSize !== undefined) {
-          if (image[0].size > this.props.minImageSize) {
-            //Tes Max images
-            if (this.props.maxImages !== undefined) {
-              if (images.length < this.props.maxImages) {
-                images.push(image[0]);
-                this.setState({ images });
-                this.converToDataUrlV2(image[0]);
-              } else {
-                //error maxImages
-                this.onError({
-                  type: "maxImages",
-                  message:
-                    "The maximum number of images is : " + this.props.maxImages
-                });
-              }
-            } else {
-              //fourth else
-              images.push(image[0]);
-              this.setState({ images });
-              this.converToDataUrlV2(image[0]);
-            }
-          } else {
-            //error min size
-            this.onError({
-              type: "minImageSize",
-              message: "The minimum size of image is : " + this.props.minImageSize
-            });
-          }
-        } else {
-          //Tes Max images
-          if (this.props.maxImages !== undefined) {
-            if (images.length < this.props.maxImages) {
-              images.push(image[0]);
-              this.setState({ images });
-              this.converToDataUrlV2(image[0]);
-            } else {
-              //error maxImages
-              this.onError({
-                type: "maxImages",
-                message:
-                  "The maximum number of images is : " + this.props.maxImages
-              });
-            }
-          } else {
-            images.push(image[0]);
-            this.setState({ images });
-            this.converToDataUrlV2(image[0]);
-          }
-        }
-      }
-  
-      ref.value = "";
-      this.setState({ open: false });
-      if (this.props.onChange !== undefined) this.props.onChange(images);
-    };
-    uid = () => {
-      const uid = `${Math.random()
-        .toString(36)
-        .slice(2)}-${Date.now().toString(36)}`;
-  
-      return uid;
-    };
-  
-    converToDataUrlV2 = image => {
-      let urls = [...this.state.urls];
-      if (this.props.multiple === undefined || this.props.multiple === false) {
-        urls = [];
-      }
-      const ReaderObj = new FileReader();
-      ReaderObj.onloadend = () => {
-        urls.push({
-          url: ReaderObj.result,
-          name: image.name
-        });
-  
-        this.setState({ urls });
-      };
-      if (image) {
-        ReaderObj.readAsDataURL(image);
-      }
-    };
-  
-    removeImages = name => {
-      const imagesTemp = [...this.state.images];
-      const urlsTemp = [...this.state.urls];
-  
-      const images = imagesTemp.filter(image => {
-        return image.name !== name;
-      });
-      const urls = urlsTemp.filter(url => {
-        return url.name !== name;
-      });
-  
-      this.setState({ images, urls });
-    };
-    onError = error => {
-      if (this.props.onError !== undefined) this.props.onError(error);
-    };
-    render() {
-      const { id, style, placeholder } = this.props;
-  
-  
-      const id_upload_from_camera = id
-        ? `${id}_upload_from_camera-${this.uid()}`
-        : `${this.uid()}_upload_from_camera-${this.uid()}`;
-  
-      const id_upload_from_device = id
-        ? `${id}_upload_from_device-${this.uid()}`
-        : `${this.uid()}_upload_from_device-${this.uid()}`;
-  
-  
-      const color = this.props.color ? this.props.color : "#0074D9";
-  
-      return (
-        <div style={style ? style : null} >
-          <div className={"container-upload-image"}>
+            style={{ backgroundColor: color }}
+          >
+            {icon}
+
             <div
-              className={"btn-upload-upload-image"}
-              onClick={
-                this.state.isMobile ? this.openPopOver : ()=>this.clickOpenFromDevice(id_upload_from_device)
-              }
-              style={{ backgroundColor: color }}
+              className={"popOver-upload-image"}
+              style={{
+                display: this.state.open ? "flex" : "none",
+                backgroundColor: color
+              }}
             >
-              {
-                //myIcon
-              }
-
-              <CameraAlt />
-              <div
-                className={"popOver-upload-image"}
-                style={{
-                  display: this.state.open ? "flex" : "none",
-                  backgroundColor: color
-                }}
+              <label
+                htmlFor={this.state.id_upload_from_camera}
+                className={"btn-choose-upload-image"}
               >
-                <label
-                  htmlFor={id_upload_from_camera}
-                  className={"btn-choose-upload-image"}
-                >
-                  {
-                    //myIcon
-                  }
-  
-                 <CameraAlt/>
-                </label>
-  
-                <label
-                  className={"btn-choose-upload-image"}
-                  htmlFor={id_upload_from_device}
-                  id="upload_from_device_label_id"
-                >
-                 <Publish />
-                </label>
-  
-                {
-                  //camera input
-                }
-                <input
-                  type="file"
-                  style={{ display: "none" }}
-                  id={id_upload_from_camera}
-                  capture="camera"
-                  accept="image/*"
-                  onChange={ref => this.onChange(ref.target, ref.target.files)}
-                />
-                {
+                {icon}
+              </label>
 
-                  //upload from device input
-                }
-                <input
-                  type="file"
-                  style={{ display: "none" }}
-                  id={id_upload_from_device}
-                  accept="image/*"
-                  onChange={ref => this.onChange(ref.target, ref.target.files)}
-                />
-              </div>
-            </div>
-  
-            <div className={"images-container-upload-image"}>
-              {this.state.images.length == 0 ? (
-                <div className={"placeholder-upload-image"}>
-                  {placeholder ? placeholder : null}
-                </div>
-              ) : null}
-  
-              {this.state.urls.map(url => {
-                return (
-                  <div
-                    className={"image-upload-image-container"}
-                    key={this.uid()}
-                  >
-                    <img src={url.url} className={"image-upload-image"} />
-                    <span className={"image-name-upload-image"}>
-                      {url.name}
-                    </span>
-                    <span
-                      className={"image-close-upload-image"}
-                      onClick={() => this.removeImages(url.name)}
-                    >
-                     <Close
-                      />
-                    </span>
-                  </div>
-                );
-              })}
-  
-              {/*
-     <div className={["image-upload-image-container"]}>
-                <img
-                  src="https://www.online-image-editor.com/help/images/exmpl_start.jpg"
-                  className={["image-upload-image"]}
-                />
-                <span className={["image-name-upload-image"]}>
-                  lorem lorem lorem lorem lorem
-                </span>
-                <span className={["image-close-upload-image"]}>
-                  <img src={Close} />
-                </span>
-              </div>
-    */}
+              <label
+                className={"btn-choose-upload-image"}
+                htmlFor={this.state.id_upload_from_device}
+                id="upload_from_device_label_id"
+              >
+                <Publish />
+              </label>
+
+              {
+                //camera input
+              }
+              <input
+                type="file"
+                style={{ display: "none" }}
+                id={this.state.id_upload_from_camera}
+                capture="camera"
+                accept="image/*"
+                onChange={event => this.onChange(event)}
+                multiple={this.props.multiple}
+              />
+
+              {
+                //upload from device input
+              }
+              <input
+                type="file"
+                style={{ display: "none" }}
+                id={this.state.id_upload_from_device}
+                accept="image/*"
+                onChange={event => this.onChange(event)}
+                multiple={this.props.multiple}
+              />
             </div>
           </div>
+          <div
+            className={"images-container-upload-image"}
+            style={{
+              border: this.props.error
+                ? "1px solid red"
+                : "1px solid rgba(0,0,0,0.4)",
+              borderLeft: "none"
+            }}
+          >
+            {path !== null && this.state.oldImages !== undefined
+              ? this.state.oldImages.map(image => {
+                  return (
+                    <div
+                      className={"image-upload-image-container"}
+                      key={this.uid()}
+                      onClick={() =>
+                        this.openImage({ image: image, type: "old" })
+                      }
+                    >
+                      <img
+                        src={`${path}${image}`}
+                        className={"image-upload-image"}
+                        alt={image}
+                      />
+                      <span className={"image-name-upload-image"}>{image}</span>
+                      <span
+                        className={"image-close-upload-image"}
+                        onClick={(e) => {e.stopPropagation(); this.onDelete(image)}}
+                      >
+                        <Close />
+                      </span>
+                    </div>
+                  );
+                })
+              : null}
+            {this.state.images.length === 0 &&
+            (this.state.oldImages !== undefined &&
+              this.state.oldImages.length === 0) ? (
+              <div
+                className={"placeholder-upload-image"}
+                style={{ color: this.props.error ? "red" : "rgba(0,0,0,0.4)" }}
+              >
+                {placeholder ? placeholder : null}
+              </div>
+            ) : (
+              <span className="split-bar" />
+            )}
+
+            {this.state.images.map(image => {
+              const url = URL.createObjectURL(image);
+              return (
+                <div
+                  className={"image-upload-image-container"}
+                  key={this.uid()}
+                  onClick={() => this.openImage({ image: url, type: "new" })}
+                >
+                  <img
+                    src={url}
+                    className={"image-upload-image"}
+                    alt={image.name}
+                  />
+                  <span className={"image-name-upload-image"}>
+                    {image.name}
+                  </span>
+                  {/*<span
+                    className={"image-close-upload-image"}
+                    onClick={() => this.removeImages(image.name)}
+                  >
+                    <Close />
+                  </span>*/}
+                </div>
+              );
+            })}
+          </div>
+          <button
+            className="reset-btn"
+            onClick={this.onRest}
+            style={{ backgroundColor: color }}
+          >
+            <Close />
+          </button>
         </div>
-      );
-    }
+        <Dialog
+          fullWidth
+          maxWidth={"xl"}
+          open={this.state.openImageDialog}
+          onClose={this.handleCloseImageDialog}
+        >
+          <img src={this.state.image} />
+        </Dialog>
+      </div>
+    );
   }
-  
+}
