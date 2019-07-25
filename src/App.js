@@ -112,14 +112,11 @@ class App extends Component {
         <_Input
           id={file.id}
           type={file.type}
-          onchange={this.onchange}
+          onchange={this.onChange}
           label={file.label}
           icon={<FileCopy />}
           length={50}
-          accepts={file.accepts}
-          maxFiles={file.maxFiles}
-          maxFileSize={file.maxFileSize}
-          minFileSize={file.minFileSize}
+          oldFiles={['1.jpg','2.jpg','3.jpg']}
           error={file.error}
         />
         <_Input

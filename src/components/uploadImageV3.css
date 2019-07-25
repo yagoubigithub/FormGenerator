@@ -27,12 +27,13 @@
     align-items: center;
     padding: 2px;
     padding-left: 5px;
-  
+    flex: auto;
     height: 70px;
   }
   .image-upload-image-container{
    position: relative;
    margin-left: 4px;
+
    
   }
   .image-upload-image{

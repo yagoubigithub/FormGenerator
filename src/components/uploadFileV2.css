@@ -1,0 +1,111 @@
+/* add css styles here (optional) */
+.btn-upload-container {
+    display: flex;
+    flex-wrap: nowrap;
+  }
+  .btn-upload-container > * {
+    cursor: pointer;
+  }
+  .btn-upload > * {
+    cursor: pointer;
+  }
+  .btn-upload {
+    border: 0;
+  
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+  
+    border-radius: 2px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+    display: flex;
+  }
+  .btn-upload label {
+    padding: 6px 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: capitalize;
+    white-space: nowrap;
+  }
+  .svg-icon {
+      display: flex;
+      justify-items: center;
+      margin-right: 10px;
+  }
+  .files-container {
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .files-container > * {
+    cursor: pointer;
+  }
+  .file {
+    position: relative;
+    display: flex;
+    background-color: #e2e2e2;
+    padding: 2px;
+    margin: 1px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    color: rgba(0, 0, 0, 0.5);
+  }
+  .file-name {
+    height: 20px;
+    padding-right: 5px;
+    padding-left: 5px;
+    word-break: break-all;
+  }
+  .file-close {
+    width: 20px;
+    height: 20px;
+    background-color: #d2d2d2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    cursor: pointer;
+  }
+  .file-close:hover {
+    background-color: rgba(150, 0, 0, 0.4);
+  }
+  .placeholder {
+    color: rgba(0, 0, 0, 0.5);
+    padding-left: 4px;
+    width: 100%;
+    text-align: left;
+  }
+  .file-name-hover{
+    position: absolute;
+    bottom: -23px;
+    background: #111 !important;
+    color: white;
+    font-size: 12px;
+    padding: 1px;
+    opacity: 0;
+    transition: all 1s ease-out;
+  }
+  .split-bar{
+    height: 100%;
+    background: #111;
+    width : 3px;
+    margin-left: 5px;
+    margin-right: 5px;
+   
+
+  }
+  .file:hover .file-name-hover{
+    opacity: 1;
+  }
+  .reset-btn-upload-file{
+    cursor: pointer !important;
+    width : 80px;
+   
+    color : #fff;
+    border :none;
+    
+  }

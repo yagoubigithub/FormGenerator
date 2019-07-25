@@ -16,7 +16,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
 
-import UploadFile from "./UploadFile";
+import UploadFileV2 from "./UploadFileV2";
 import ColorPicker from "material-ui-color-picker";
 
 import {
@@ -29,7 +29,6 @@ import Select from "react-select";
 
 import DateFnsUtils from "@date-io/date-fns";
 import frLocale from "date-fns/locale/fr";
-import UploadImagesV2 from "./UploadImageV2";
 
 class _Input extends Component {
   state = {};
@@ -66,7 +65,8 @@ class _Input extends Component {
       required,
       onchange,
       onDelete,
-      onRest
+      onRest,
+      oldFiles
     } = this.props;
 
     this.setState({ [id]: value !== undefined ? value : null });
@@ -260,16 +260,30 @@ class _Input extends Component {
         {
           return (
             <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
-              <UploadFile
+              <UploadFileV2
                 id={id}
+                oldFiles={ oldFiles !== undefined ? oldFiles : null}
                 label={label ? label : null}
+                path={path !== "" && path !== undefined ? path : null}
                 onChange={
                   onchange !== undefined
-                    ? (files, e) => onchange(e, id, files)
+                    ?(e,files) => onchange( e, id, files)
                     : null
                 }
+                onDelete={
+                      onDelete !== undefined
+                        ? (name) => onDelete(name)
+                        : null
+                    }  
+
+                    onRest={
+                      onRest !== undefined
+                        ? () => onRest()
+                        : null
+                    }
                 multiple={type === "files"}
                 error={error !== "" && error !== undefined}
+                icon={icon}
               />
             </Grid>
           );
@@ -278,6 +292,7 @@ class _Input extends Component {
         case "image":
           case "images":
             {
+
               return (
                 <Grid item xs={xs} sm={sm} md={md} lg={lg} xl={xl}>
                   <UploadImageV3
